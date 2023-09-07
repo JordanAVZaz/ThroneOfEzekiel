@@ -303,7 +303,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 20, y: 60, z: 20}
+  m_LocalPosition: {x: 20, y: 60, z: 13.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -339,10 +339,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardPrefab: {fileID: 3417195666515070595, guid: 2ca8734bde616a44ab090300f4e50ba5, type: 3}
-  startHandSize: 7
-  screenHandWidth: 80
-  handX: 0
-  handZ: 0
+  handWidth: 90
+  handY: 0
+  handZ: -8
+  handSize: 0
+  maxSpace: 1
 --- !u!4 &1885255157
 Transform:
   m_ObjectHideFlags: 0
@@ -486,7 +487,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5073495877104971251, guid: 2ca8734bde616a44ab090300f4e50ba5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 21.8
+      value: 23.1
       objectReference: {fileID: 0}
     - target: {fileID: 5073495877104971251, guid: 2ca8734bde616a44ab090300f4e50ba5, type: 3}
       propertyPath: m_LocalPosition.y
@@ -494,7 +495,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5073495877104971251, guid: 2ca8734bde616a44ab090300f4e50ba5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.3
+      value: 95
       objectReference: {fileID: 0}
     - target: {fileID: 5073495877104971251, guid: 2ca8734bde616a44ab090300f4e50ba5, type: 3}
       propertyPath: m_LocalRotation.w

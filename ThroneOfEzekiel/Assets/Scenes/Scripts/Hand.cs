@@ -5,64 +5,80 @@ using UnityEngine;
 public class Hand : MonoBehaviour
 {
     public GameObject cardPrefab;
-    public int startHandSize = 7;
-    public float screenHandWidth = 90;
-    public float leftCardX = -20;
+    [Range(0,1000)]
+    public float handWidth = 90;
+    [Range(-100,100)]
     public float handY = 0;
+    [Range(-100,100)]
     public float handZ = 0;
-    public float spacing = 1.5f;
+    [Range(0,10)]
+    public int handSize;
+    //spacing limiter, 14.3 is the favourite
+    [Range(0,100)]
+    public float maxSpace = 14.3f; 
 
-    private List<GameObject> hand;
-    private int currentHandSize;
+    private int startHandSize = 7;
+    private List<GameObject> hand = new List<GameObject>();
+    private Vector3 handAnchor;
 
     void Start()
     {
-        hand = new List<GameObject>();
-        currentHandSize = startHandSize;
-       // InitializeHand();
-
-        Vector3 cameraPosition = Camera.main.transform.position;
-        Vector3 midpoint = cameraPosition + Camera.main.transform.forward * 5f; // Adjust the multiplier to set the distance from the camera at which the cards should appear.
-
-        // Calculate the starting position based on the number of cards and spacing
-        Vector3 startPos = midpoint - new Vector3(spacing * (currentHandSize / 2), 0, 0);
-
-        for (int i = 0; i < currentHandSize; i++)
-        {
-            Vector3 cardPosition = startPos + new Vector3(spacing * i, 0, 0);
-            GameObject card = Instantiate(cardPrefab, cardPosition, Quaternion.identity);
-            hand.Add(card);
-        }
+        InitializeHand();
+        handSize = startHandSize;
     }
 
     void Update()
     {
-        int queuedCards = currentHandSize;
-        foreach(GameObject card in hand){
-            card.transform.position = new Vector3(screenHandWidth / currentHandSize*queuedCards, handY, handZ);
-            queuedCards--;
-        }
+        ResizeHand();
+        UpdateCardPlacement();
     }
 
-    void InitializeHand()
+    private void InitializeHand()
     {
-        int queuedCards = currentHandSize;
-        for (int i = 0; i < currentHandSize; i++)
+        handSize = startHandSize;
+        handAnchor = CreateHandAnchor();
+
+        for (int i = 0; i < startHandSize; i++)
         {
-            Draw(new Vector3
-            (screenHandWidth / currentHandSize*queuedCards, handY, handZ), Quaternion.identity);
-            queuedCards--;
+            GameObject cardObject = Instantiate(cardPrefab);
+            hand.Add(cardObject);
+        }
+
+        UpdateCardPlacement();
+    }
+
+    void UpdateCardPlacement()
+    {  
+        //card spacing formula
+        //handWidth = x screen size for hand
+        //maxSpace = limiter for how far cards can be apart
+        float cardSpacing = Mathf.Min(handWidth / (hand.Count - 1), maxSpace);
+
+        //formula fans out cards from centre
+        for (int i = 0; i < hand.Count; i++)
+        {
+            float x = handAnchor.x + cardSpacing * (i - ((float)hand.Count - 1) / 2);
+            hand[i].transform.position = new Vector3(x, handY, handZ);
+        }
+    }
+    //test funtion
+    private void ResizeHand(){
+        while (handSize < hand.Count)
+        {
+            Destroy(hand[hand.Count - 1]);
+            hand.RemoveAt(hand.Count - 1);
+        }
+
+        while (handSize > hand.Count)
+        {
+            GameObject cardObject = Instantiate(cardPrefab);
+            hand.Add(cardObject);
         }
     }
 
-    void Draw(Vector3 cardTransform, Quaternion cardRotate)
+    private Vector3 CreateHandAnchor()
     {
-        GameObject cardObject = Instantiate(cardPrefab, cardTransform, cardRotate);
-        hand.Add(cardObject);
-    }
-
-    void CardPlacement()
-    {
-        // Logic to arrange cards in desired format
+        float cameraPosition_X = Camera.main.transform.position.x;
+        return new Vector3(cameraPosition_X, handY, handZ);
     }
 }
