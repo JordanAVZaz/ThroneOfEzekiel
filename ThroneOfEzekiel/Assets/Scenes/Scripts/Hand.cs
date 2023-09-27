@@ -25,6 +25,7 @@ public class Hand : MonoBehaviour
     {
         InitializeHand();
         handSize = startHandSize;
+        maxSpace = 14.3f;
     }
 
     void Update()

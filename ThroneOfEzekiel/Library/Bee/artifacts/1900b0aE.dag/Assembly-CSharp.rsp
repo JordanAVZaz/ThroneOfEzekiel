@@ -353,10 +353,13 @@
 -analyzer:"C:/Program Files/Unity/Hub/Editor/2022.3.5f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll"
 -analyzer:"C:/Program Files/Unity/Hub/Editor/2022.3.5f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
 "Assets/Scenes/Scripts/BaseTile.cs"
+"Assets/Scenes/Scripts/Card.cs"
 "Assets/Scenes/Scripts/CriticalTile.cs"
 "Assets/Scenes/Scripts/GameBoard.cs"
+"Assets/Scenes/Scripts/GameState.cs"
 "Assets/Scenes/Scripts/Hand.cs"
-"Assets/Scenes/Scripts/PlayTile.cs"
+"Assets/Scenes/Scripts/Mouse.cs"
+"Assets/Scenes/Scripts/Mouse_backup.cs"
 -langversion:9.0
 
 /deterministic

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5125085887917261842}
   - component: {fileID: 3435902132751301959}
   - component: {fileID: 5032392197340131492}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BaseTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
