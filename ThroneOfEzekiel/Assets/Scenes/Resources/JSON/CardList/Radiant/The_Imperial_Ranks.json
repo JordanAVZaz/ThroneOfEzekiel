@@ -1,0 +1,27 @@
+{
+    "name": "The_Imperial_Ranks",
+    "imgPath": "Images/Cards/Radiant/The-Imperial-Ranks",
+    "alignment": "Radiant",
+    "unitClass": "Club",
+    "movementCost": 2,
+    "unitModifiers": [],
+    "family": [
+        "Knight"
+    ],
+    "rank": 1,
+    "health": 2,
+    "power": 2,
+    "abilities": [
+        {
+            "type": "OnArrival",
+            "effect": {
+                "action": "Summon",
+                "value": {"summon":"Solumn_Cleric"}
+            },
+            "target": "Empty",
+            "condition": "None",
+            "constraints": "King",
+            "text": "On Arrival: Summon a Solumn Cleric"
+        }
+    ]
+}

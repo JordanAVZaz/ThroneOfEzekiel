@@ -11,8 +11,9 @@ public class Mouse : MonoBehaviour
     private int handLayer = 1 << 6;
     private int tileLayer = 1 << 7;
     private Vector3 originalScale;
-    private GameObject previousObject; // This is for hover effect
-    private GameObject selectedObject; // This is for selection effect/hover
+    private GameObject previousObject; // stores the previosly hovered object
+    private GameObject selectedObject; // stores 
+
     private Camera mainCamera;
 
     void Start()
@@ -22,103 +23,128 @@ public class Mouse : MonoBehaviour
 
     void Update()
     {
-        switch(GameState.Instance.State){
-            case(GameState.Global_States.GameStart):
-            break;
-            case(GameState.Global_States.Draw):
-            break;
-            case(GameState.Global_States.Idle):
-            break;
-            case(GameState.Global_States.HandCardSelected):
-            break;
-            case(GameState.Global_States.FieldCardSelected):
-            break;
-            case(GameState.Global_States.TurnTransition):
-            break;
-            case(GameState.Global_States.GameEnd):
-            break;
-            default:
-                UnityEngine.Debug.Log("Out of bounds game state");
-            break;
-        }
+        HandleGameStateChange(GameState.Instance.State);
+    }
+
+    private void HandleGameStateChange(GameState.Global_States newState)
+    {
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, handLayer) && GameState.Instance.State == GameState.Global_States.Idle)
+        switch (newState)
         {
-            GameObject objectHit = hit.transform.gameObject;
-            Card cardAttributes = objectHit.GetComponent<Card>();
-
-            //hover effect
-            if (previousObject != objectHit && objectHit != selectedObject)
-            {
-                // Reset the scale of the previously hovered object
-                if (previousObject != null && previousObject != selectedObject)
+            case GameState.Global_States.Idle:
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity, handLayer))
                 {
-                    previousObject.GetComponent<Card>().Scale_Card_Reset(); // Reset to original scale
+                    Hand_Interaction_Handler(hit);
                 }
-                // Store this object as the previous object and remember its original scale
-                previousObject = objectHit;
-                // Increase the scale for hover effect
-                objectHit.GetComponent<Card>().Scale_Card();
-            }
+                else
+                    Reset_Previous_Object();
+                break;
 
-            // Handle Selection Effect
-            if (Input.GetMouseButtonDown(0) && objectHit != selectedObject)
-            {
-                if (selectedObject)
+            case GameState.Global_States.HandCardSelected:
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity, tileLayer))
                 {
-                    // Deselect previously selected object
+                    Board_Interaction_Handler(hit);
+                }
+                else
+                    Reset_Previous_Object();
+
+                // Handle Deselection with Escape key
+                if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Space))
+                {
                     selectedObject.GetComponent<Card>().Selection(false);
-                    selectedObject.GetComponent<Card>().Scale_Card_Reset();
+                    selectedObject = null;
                 }
-                // sets first selectable object if selectObject=false 
-                // Mark current object as selected
-                cardAttributes.Selection(true);
-                selectedObject = objectHit;
-            }
+                break;
+
+            case GameState.Global_States.FieldCardSelected:
+                // Add logic here if necessary.
+                break;
+
+            default:
+                UnityEngine.Debug.Log("State Error");
+                // Other state logic or do nothing.
+                break;
         }
-        //selection
-        else if (Physics.Raycast(ray, out hit, Mathf.Infinity, tileLayer) && GameState.Instance.State == GameState.Global_States.HandCardSelected)
+    }
+
+    private void Reset_Previous_Object()
+    {
+        if (previousObject?.GetComponent<Card>() != null )
         {
-            GameObject objectHit = hit.transform.gameObject;
-            BaseTile tileAttributes = objectHit.GetComponent<BaseTile>();
-           
-            if (previousObject != objectHit && objectHit != selectedObject)
+            previousObject.GetComponent<Card>().Scale_Card_Reset();
+        }
+        else if (previousObject?.GetComponent<BaseTile>() != null)
+        {
+            previousObject.GetComponent<BaseTile>().Fill_Default_Color();
+        }
+    }
+
+    private void Hand_Interaction_Handler(RaycastHit hit)
+    {
+        GameObject objectHit = hit.transform.gameObject;
+        Card cardAttributes = objectHit.GetComponent<Card>();
+
+        //hover effect
+        //if this isnt the previouse object and the currently stored hovered object
+        if (previousObject != objectHit && objectHit != selectedObject)
+        {
+            // Reset the scale of the previously hovered object
+            //if previouse object isnt null and isn't the current hovered object
+            if (previousObject?.GetComponent<Card>() != null && previousObject != selectedObject)
             {
-                // Reset the color of the previously hovered object
-                if (previousObject != null && previousObject != selectedObject && previousObject.GetComponent<BaseTile>().IsHovered)
-                {
-                    previousObject.GetComponent<BaseTile>().Fill_Default_Color();
-                }
-                // Store this object as the previous object
-                previousObject = objectHit;
-                // Change the color for hover effect
-                tileAttributes.Fill_Selectable_Color();
+                //resets its scale
+                previousObject.GetComponent<Card>().Scale_Card_Reset();
             }
-         
+
+            // Store this object as the previous object and remember its original scale
+            previousObject = objectHit;
+            objectHit.GetComponent<Card>().Scale_Card();
         }
 
-        //exit selected state
-        if (GameState.Instance.State == GameState.Global_States.HandCardSelected)
+        // Handle Selection Effect
+        if (Input.GetMouseButtonDown(0) && objectHit != selectedObject)
         {
-            //have to break out of layer, so command can be used gloabaly
-            // Handle Deselection with Escape key
-            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Space))
+            if (selectedObject)
             {
+                // Deselect previously selected object
                 selectedObject.GetComponent<Card>().Selection(false);
-                selectedObject = null;
+                selectedObject.GetComponent<Card>().Scale_Card_Reset();
+            }
+
+            // Mark current object as selected
+            cardAttributes.Selection(true);
+            selectedObject = objectHit;
+        }
+    }
+
+    private void Board_Interaction_Handler(RaycastHit hit)
+    {
+        GameObject objectHit = hit.transform.gameObject;
+        // checks that it hasn't already been hit 
+        if (previousObject != objectHit)
+        {
+            // checks if its null and is a basetile
+            if (previousObject != objectHit)
+            {
+                //returns it to default
+                Reset_Previous_Object();
             }
         }
-        UnityEngine.Debug.Log(previousObject.name);
+        // Store this object as the previous object
+        previousObject = objectHit;
+        previousObject.GetComponent<BaseTile>().Fill_Selectable_Color();
     }
 
-    private void Hand_Interaction_Handler()
-    {
 
+    private void OnEnable()
+    {
+        GameState.OnGameStateChanged += HandleGameStateChange;
     }
-    private void Board_Interaction_Handler()
-    {
 
+    private void OnDisable()
+    {
+        GameState.OnGameStateChanged -= HandleGameStateChange;
     }
 }

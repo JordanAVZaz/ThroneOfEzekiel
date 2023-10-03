@@ -1,0 +1,8 @@
+{
+    "deckName": "Radiant Starter",
+    "cards": [
+        {"name": "Radiant_Paladin","type":"unit","copies": 3,"link":"JSON/CardList/Radiant/Bright_Paladin"},
+        {"name": "The_Imperial_Ranks", "type":"unit","copies": 3,"link":"JSON/CardList/Radiant/The_Imperial_Ranks"},
+        {"name": "Solumn_Cleric","type":"unit", "copies": 3,"link":"JSON/CardList/Radiant/Solumn_Cleric"}
+    ]
+}
