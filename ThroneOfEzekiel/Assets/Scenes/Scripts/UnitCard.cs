@@ -30,8 +30,9 @@ public class UnitCard : Card
     }
 
     // Initializes the card with properties from a JSON file
-    public void Initialize(string link)
+    public void Initialize(string link, int index)
     {
+        base.Initialize(index);
         data = new UnitCardData();
 
         UnityEngine.Debug.Log("Initializing..............." + data.name);

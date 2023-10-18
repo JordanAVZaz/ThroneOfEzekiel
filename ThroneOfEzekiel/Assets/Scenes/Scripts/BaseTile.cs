@@ -1,11 +1,13 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+using System.Drawing;
+using Unity.VisualScripting;
 using UnityEngine;
+using Color = UnityEngine.Color;
 
-public class BaseTile : MonoBehaviour
+public class BaseTile : MonoBehaviour, ISubscribeToMouseClicks
 {
     public int player_x_SummoningZone;
+    private GameObject current_card;
     private bool occupied = false;
     private bool augment = false;
     private Vector2 tileLocation;
@@ -19,11 +21,14 @@ public class BaseTile : MonoBehaviour
     private Color nonSelectableOutlineColor = new Color(200 / 255.0f, 50 / 255.0f, 16 / 255.0f, 1f);
     private Color nonSelectableTileColor = new Color(149 / 255.0f, 40 / 255.0f, 16 / 255.0f, 1f);
 
+    private Mouse mouse; // Cached reference to the Mouse component
+
     // Start is called before the first frame update
     public void Init(int row, int col)
     {
         tileLocation = new Vector2(row, col);
         gridID = new Tuple<int, int>(row, col);
+        current_card = null;
         SetupRenderer();
         Fill_Default_Color();
     }
@@ -34,6 +39,19 @@ public class BaseTile : MonoBehaviour
             tileRenderer = GetComponent<Renderer>();
     }
 
+    void Awake()
+    {
+        mouse = FindObjectOfType<Mouse>();
+        if (mouse != null)
+        {
+            Debug.Log("Mouse Linked");
+        }
+        else
+        {
+            Debug.LogError("Mouse not found");
+        }
+
+    }
     void Start()
     {
         SetupRenderer();
@@ -68,6 +86,7 @@ public class BaseTile : MonoBehaviour
             Fill_NonSelectable_Color();
         }
     }
+
     private void Fill_NonSelectable_Color()
     {
         if (tileRenderer != null)
@@ -77,28 +96,72 @@ public class BaseTile : MonoBehaviour
             isHovered = true;
         }
     }
-    public bool IsHovered
+
+    // clicked object found with raycast via subscription
+    public void OnMouseClick(GameObject clickedObject)
     {
-        get { return isHovered; }
+        if (clickedObject != gameObject) return; // Ensure this tile was the one clicked
+
+        switch (GameState.Instance.State)
+        {
+            case GameState.Global_States.HandCardSelected:
+                // Place the selected card onto the field
+                if (current_card == null && mouse.SelectedObject.GetComponent<Card>() != null)
+                {
+                    current_card = mouse.SelectedObject;
+                    Vector3 newPosition = new Vector3(tileLocation.x, 1, tileLocation.y);
+                    current_card.GetComponent<Transform>().SetPositionAndRotation(newPosition, Quaternion.identity);
+                    current_card.GetComponent<Transform>().localScale *= 0.5f;
+                    mouse.SelectedObject = null;
+                    GameState.Instance.Set_Idle();
+                    Debug.Log("Card Placed on Tile");
+                }
+                else
+                {
+                    Debug.Log("Illegal Card Placement Attempt");
+                    break;
+                }
+                Debug.Log("Place the card on the tile");
+                break;
+
+            case GameState.Global_States.FieldCardSelected:
+                // Defer action to field card but make this tile the target
+                Debug.Log("Target this tile");
+                break;
+
+            default:
+                Debug.LogError("On Mouse Click Illegal State");
+                break;
+        }
     }
 
+    // it's more efficient with the cached mouse component
+    public void OnEnable()
+    {
+        mouse.OnMouseClick += OnMouseClick;
+    }
+
+    public void OnDisable()
+    {
+        mouse.OnMouseClick -= OnMouseClick;
+    }
+
+    public bool IsHovered => isHovered;
     public bool IsOccupied
     {
-        get { return occupied; }
-        set { occupied = value; }
+        get => occupied;
+        set => occupied = value;
     }
 
     public bool IsAugmented
     {
-        get { return augment; }
-        set { augment = value; }
+        get => augment;
+        set => augment = value;
     }
 
     public Vector2 TileLocation
     {
-        get { return tileLocation; }
-        private set { tileLocation = value; }
+        get => tileLocation;
+        private set => tileLocation = value;
     }
-
-
 }

@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class Card : MonoBehaviour
 {
-    
+    public int indexID { get; private set; } = -1;
     public float scaleFactor = 1.5f;
     private bool isSelected = false;
     private Vector3 originalScale;
@@ -17,22 +17,23 @@ public class Card : MonoBehaviour
     private Color selectionOutlineColor = new Color(168 / 255.0f, 28 / 255.0f, 178 / 255.0f, 255 / 255.0f);
     //private string imgPath;
 
-   protected virtual void Start()
-{
-    originalScale = transform.localScale;
-    cardRenderer = GetComponent<Renderer>();
-    
-    if (cardRenderer != null)
+    protected virtual void Start()
     {
-        cardRenderer.material.SetColor("_OutlineColor", defaultOutlineColor);
-    }
-    else
-    {
-        Debug.LogError("Renderer not found on " + gameObject.name);
-    }
-}
+        originalScale = transform.localScale;
+        cardRenderer = GetComponent<Renderer>();
 
-
+        if (cardRenderer != null)
+        {
+            cardRenderer.material.SetColor("_OutlineColor", defaultOutlineColor);
+        }
+        else
+        {
+            Debug.LogError("Renderer not found on " + gameObject.name);
+        }
+    }
+    public virtual void Initialize(int index){
+        index = indexID;
+    }
     public void Selection(bool cardSelected)
     {
         IsSelected = cardSelected;
@@ -58,6 +59,10 @@ public class Card : MonoBehaviour
     public void Scale_Card_Reset()
     {
         transform.localScale = originalScale;
+    }
+    public void SetIndex(int index)
+    {
+        indexID = index;
     }
 
     private bool IsSelected

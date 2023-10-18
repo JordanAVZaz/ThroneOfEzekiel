@@ -9,6 +9,7 @@ public class CardEntry
     public string type;
     public int copies;
     public string link;
+    public int indexNumber = 0; 
 
      public GameObject Create_UnitCard()
     {
@@ -28,7 +29,8 @@ public class CardEntry
             return null;
         }
 
-        unitCardComponent.Initialize(link);
+        unitCardComponent.Initialize(link, indexNumber);
+        indexNumber++;
         UnityEngine.Debug.Log("Unit Card Created................" + name + ".Link: " + link);
         return unitcard;
     }
