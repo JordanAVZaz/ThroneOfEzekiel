@@ -6,12 +6,14 @@ using UnityEngine;
 public class GameBoard : MonoBehaviour
 {
     public GameObject baseTilePrefab; // Drag your BaseTile prefab here in the Unity Editor.
-    private static BaseTile[,] gameBoard; // Use a 2D array
+    private static BaseTile[,] _gameBoard; // Use a 2D array
+
+    private List<Card> _deck;
 
     void Start()
     {
-        int size = 5; // Size of the board (5x5 for a total of 25 tiles).
-        gameBoard = new BaseTile[size, size]; // Use a 2D array
+        int size = 5; // Size of the board (5x5 for a total of 25 tiles)
+        _gameBoard = new BaseTile[size, size]; // Use a 2D array
 
         for (int row = 0; row < size; row++)
         {
@@ -26,17 +28,17 @@ public class GameBoard : MonoBehaviour
 
                 if (row < 2)
                 {
-                    tile.player_x_SummoningZone = 1;
+                    tile.playerX_summoningZone = 1;
                 }
                 else if (row > 2)
                 {
-                    tile.player_x_SummoningZone = 2;
+                    tile.playerX_summoningZone = 2;
                 }
                 else
-                    tile.player_x_SummoningZone = 0;
+                    tile.playerX_summoningZone = 0;
 
                 // Store the tile in our game board array.
-                gameBoard[row, col] = tile;
+                _gameBoard[row, col] = tile;
 
 
             }
@@ -44,7 +46,7 @@ public class GameBoard : MonoBehaviour
     }
     public BaseTile GetTile(Tuple<int, int> id)
     {
-        BaseTile tile = gameBoard[id.Item1, id.Item2];
+        BaseTile tile = _gameBoard[id.Item1, id.Item2];
         return tile;
     }
 

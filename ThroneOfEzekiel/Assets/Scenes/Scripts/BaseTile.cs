@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -6,43 +7,56 @@ using Color = UnityEngine.Color;
 
 public class BaseTile : MonoBehaviour, ISubscribeToMouseClicks
 {
-    public int player_x_SummoningZone;
-    private GameObject current_card;
-    private bool occupied = false;
-    private bool augment = false;
-    private Vector2 tileLocation;
-    private bool isHovered = false;
-    private Renderer tileRenderer;
-    private Tuple<int, int> gridID;
-    private Color defaultOutlineColor = new Color(65 / 255.0f, 51 / 255.0f, 30 / 255.0f, 1f);
-    private Color defaultTileColor = new Color(163 / 255.0f, 168 / 255.0f, 142 / 255.0f, 1f);
-    private Color selectableOutlineColor = new Color(0f, 146 / 255.0f, 248 / 255.0f, 1f);
-    private Color selectableTileColor = new Color(35 / 255.0f, 94 / 255.0f, 183 / 255.0f, 1f);
-    private Color nonSelectableOutlineColor = new Color(200 / 255.0f, 50 / 255.0f, 16 / 255.0f, 1f);
-    private Color nonSelectableTileColor = new Color(149 / 255.0f, 40 / 255.0f, 16 / 255.0f, 1f);
+    //signature
+    public delegate void TileOccupationHandler(GameObject card);
+    // event
+    public event TileOccupationHandler OnCardMove;
+    //card in this tile
+    private List<Card> _deck;
+    //Which players summoning zone is it in.
+    public int playerX_summoningZone;
+    private GameObject _occupyingCard;
+    private bool _occupied = false;
+    private bool _augment = false;
+    private bool _isHovered = false;
 
-    private Mouse mouse; // Cached reference to the Mouse component
+    private Vector2 _tileLocation;
+    //position on grid and ID
+    private Tuple<int, int> _gridID;
+    // Cached reference to the Mouse component
+    private Mouse _mouse;
+    //Tile renderer
+    private Renderer _tileRenderer;
+    //Color fill of object
+    private Color _defaultOutlineColor = new Color(65 / 255.0f, 51 / 255.0f, 30 / 255.0f, 1f);
+    private Color _defaultTileColor = new Color(163 / 255.0f, 168 / 255.0f, 142 / 255.0f, 1f);
+    private Color _selectableOutlineColor = new Color(0f, 146 / 255.0f, 248 / 255.0f, 1f);
+    private Color _selectableTileColor = new Color(35 / 255.0f, 94 / 255.0f, 183 / 255.0f, 1f);
+    private Color _nonSelectableOutlineColor = new Color(200 / 255.0f, 50 / 255.0f, 16 / 255.0f, 1f);
+    private Color _nonSelectableTileColor = new Color(149 / 255.0f, 40 / 255.0f, 16 / 255.0f, 1f);
+
 
     // Start is called before the first frame update
     public void Init(int row, int col)
     {
-        tileLocation = new Vector2(row, col);
-        gridID = new Tuple<int, int>(row, col);
-        current_card = null;
+        _deck = new List<Card>();
+        _tileLocation = new Vector2(row, col);
+        _gridID = new Tuple<int, int>(row, col);
+        _occupyingCard = null;
         SetupRenderer();
         Fill_Default_Color();
     }
 
     private void SetupRenderer()
     {
-        if (tileRenderer == null)
-            tileRenderer = GetComponent<Renderer>();
+        if (_tileRenderer == null)
+            _tileRenderer = GetComponent<Renderer>();
     }
 
     void Awake()
     {
-        mouse = FindObjectOfType<Mouse>();
-        if (mouse != null)
+        _mouse = FindObjectOfType<Mouse>();
+        if (_mouse != null)
         {
             Debug.Log("Mouse Linked");
         }
@@ -65,21 +79,21 @@ public class BaseTile : MonoBehaviour, ISubscribeToMouseClicks
 
     public void Fill_Default_Color()
     {
-        if (tileRenderer != null)
+        if (_tileRenderer != null)
         {
-            tileRenderer.material.SetColor("_OutlineColor", defaultOutlineColor);
-            tileRenderer.material.SetColor("_BaseColor", defaultTileColor);
-            isHovered = false;
+            _tileRenderer.material.SetColor("_OutlineColor", _defaultOutlineColor);
+            _tileRenderer.material.SetColor("_BaseColor", _defaultTileColor);
+            _isHovered = false;
         }
     }
 
     public void Fill_Selectable_Color()
     {
-        if (tileRenderer != null && player_x_SummoningZone == 1)
+        if (_tileRenderer != null && playerX_summoningZone == 1)
         {
-            tileRenderer.material.SetColor("_OutlineColor", selectableOutlineColor);
-            tileRenderer.material.SetColor("_BaseColor", selectableTileColor);
-            isHovered = true;
+            _tileRenderer.material.SetColor("_OutlineColor", _selectableOutlineColor);
+            _tileRenderer.material.SetColor("_BaseColor", _selectableTileColor);
+            _isHovered = true;
         }
         else
         {
@@ -89,11 +103,11 @@ public class BaseTile : MonoBehaviour, ISubscribeToMouseClicks
 
     private void Fill_NonSelectable_Color()
     {
-        if (tileRenderer != null)
+        if (_tileRenderer != null)
         {
-            tileRenderer.material.SetColor("_OutlineColor", nonSelectableOutlineColor);
-            tileRenderer.material.SetColor("_BaseColor", nonSelectableTileColor);
-            isHovered = true;
+            _tileRenderer.material.SetColor("_OutlineColor", _nonSelectableOutlineColor);
+            _tileRenderer.material.SetColor("_BaseColor", _nonSelectableTileColor);
+            _isHovered = true;
         }
     }
 
@@ -106,13 +120,13 @@ public class BaseTile : MonoBehaviour, ISubscribeToMouseClicks
         {
             case GameState.Global_States.HandCardSelected:
                 // Place the selected card onto the field
-                if (current_card == null && mouse.SelectedObject.GetComponent<Card>() != null)
+                if (_occupyingCard == null && _mouse.SelectedObject.GetComponent<Card>() != null)
                 {
-                    current_card = mouse.SelectedObject;
-                    Vector3 newPosition = new Vector3(tileLocation.x, 1, tileLocation.y);
-                    current_card.GetComponent<Transform>().SetPositionAndRotation(newPosition, Quaternion.identity);
-                    current_card.GetComponent<Transform>().localScale *= 0.5f;
-                    mouse.SelectedObject = null;
+                    _occupyingCard = _mouse.SelectedObject;
+                    Vector3 newPosition = new Vector3(_tileLocation.x, 1, _tileLocation.y);
+                    _occupyingCard.GetComponent<Transform>().SetPositionAndRotation(newPosition, Quaternion.identity);
+                    _occupyingCard.GetComponent<Transform>().localScale *= 0.5f;
+                    _mouse.SelectedObject = null;
                     GameState.Instance.Set_Idle();
                     Debug.Log("Card Placed on Tile");
                 }
@@ -138,30 +152,31 @@ public class BaseTile : MonoBehaviour, ISubscribeToMouseClicks
     // it's more efficient with the cached mouse component
     public void OnEnable()
     {
-        mouse.OnMouseClick += OnMouseClick;
+        _mouse.OnMouseClick += OnMouseClick;
     }
 
     public void OnDisable()
     {
-        mouse.OnMouseClick -= OnMouseClick;
+        _mouse.OnMouseClick -= OnMouseClick;
     }
 
-    public bool IsHovered => isHovered;
+
+    public bool IsHovered => _isHovered;
     public bool IsOccupied
     {
-        get => occupied;
-        set => occupied = value;
+        get => _occupied;
+        set => _occupied = value;
     }
 
     public bool IsAugmented
     {
-        get => augment;
-        set => augment = value;
+        get => _augment;
+        set => _augment = value;
     }
 
     public Vector2 TileLocation
     {
-        get => tileLocation;
-        private set => tileLocation = value;
+        get => _tileLocation;
+        private set => _tileLocation = value;
     }
 }

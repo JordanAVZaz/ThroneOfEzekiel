@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //state pattern
-public class GameState : MonoBehaviour
+public class GameState : Singleton<GameState>
 {
     public enum Global_States
     {
@@ -18,22 +18,7 @@ public class GameState : MonoBehaviour
     }
     public delegate void GameStateChangedDelegate(Global_States newState);
     public static event GameStateChangedDelegate OnGameStateChanged;
-    public static GameState Instance { get; private set; }
     private Global_States currentState;
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-
-        Set_Idle();
-    }
 
     private void Update()
     {

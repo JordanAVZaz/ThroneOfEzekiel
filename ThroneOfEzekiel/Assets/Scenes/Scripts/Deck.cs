@@ -28,7 +28,6 @@ public class CardEntry
             UnityEngine.Debug.LogError("UnitCard component not found on the prefab!");
             return null;
         }
-
         unitCardComponent.Initialize(link, indexNumber);
         indexNumber++;
         UnityEngine.Debug.Log("Unit Card Created................" + name + ".Link: " + link);
@@ -99,19 +98,6 @@ public class Deck
                 UnityEngine.Debug.Log("looping................");
                 GameObject newCard = null;
                 newCard = cardEntry.Create_UnitCard();
-
-
-                /*
-                switch (cardEntry.type)
-                {
-                    case "unit":
-                        newCard = cardEntry.Create_UnitCard();
-                        UnityEngine.Debug.Log("Unit Created................");
-                        break;
-                        
-                    // You can extend other card types here
-                }
-                */
 
                 if (newCard != null)
                 {
