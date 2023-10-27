@@ -1,0 +1,28 @@
+{
+    "name": "Bright_Paladin",
+    "imgPath": "Images/Cards/Radiant/Bright-Paladin",
+    "alignment": "Radiant",
+    "unitClass": "Club",
+    "movementCost": 2,
+    "unitModifiers": [],
+    "family": [
+        "Cleric",
+        "Knight"
+    ],
+    "rank": 1,
+    "health": 2,
+    "power": 3,
+    "abilities": [
+        {
+            "type": "OnArrival",
+            "effect": {
+                "action": "Choose_One",
+                "value": {"deal": 2, "heal": 4}
+            },
+            "target": "Any",
+            "condition": "LookingAt",
+            "constraints": "Rook",
+            "text": "On Arrival: Deal 2 damage or heal 4 to a unit you are looking at (rook)."
+        }
+    ]
+}

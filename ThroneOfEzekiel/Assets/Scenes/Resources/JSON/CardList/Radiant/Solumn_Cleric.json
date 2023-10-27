@@ -1,0 +1,27 @@
+{
+    "name": "Solumn_Cleric",
+    "imgPath": "Images/Cards/Radiant/Solumn-Cleric",
+    "alignment": "Radiant",
+    "unitClass": "Sword",
+    "movementCost": 1,
+    "unitModifiers": [],
+    "family": [
+        "Cleric"
+    ],
+    "rank": 1,
+    "health": 1,
+    "power": 1,
+    "abilities": [
+        {
+            "type": "Constant",
+            "effect": {
+                "action": "Buff",
+                "value": {"increaseHealth": 1}
+            },
+            "target": "Ally",
+            "condition": "LookingAt",
+            "constraints": "Rook",
+            "text": "As this looks(Rook) at a unit, it gains +1 health."
+        }
+    ]
+}
