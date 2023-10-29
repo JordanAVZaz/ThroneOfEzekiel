@@ -24,15 +24,12 @@ public class UnitCard : Card
     public GameObject powerUI;
     public GameObject healthUI;
     // Override the start function for custom initialization
-    protected override void Start()
-    {
-        base.Start();
-    }
 
     // Initializes the card with properties from a JSON file
     public void Initialize(string link, int index)
     {
-        base.Initialize(index);
+        base.Initialize(link,index);
+        base.Name = name;
         data = new UnitCardData();
 
         UnityEngine.Debug.Log("Initializing..............." + data.name);

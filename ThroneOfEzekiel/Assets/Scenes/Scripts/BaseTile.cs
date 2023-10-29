@@ -77,6 +77,10 @@ public class BaseTile : MonoBehaviour, ISubscribeToMouseClicks
 
     }
 
+    public void Put_In(Card card){
+        //CardManager.Instance.MigrateCard(card,);
+    }
+
     public void Fill_Default_Color()
     {
         if (_tileRenderer != null)

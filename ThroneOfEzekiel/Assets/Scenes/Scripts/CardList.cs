@@ -1,10 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class CardList : List<Card>
 {
+    Dictionary<string, int> cachedCoppies = new Dictionary<string, int>();
     public CardList() : base() { }
 
     public new void Add(Card card)
@@ -21,6 +24,7 @@ public class CardList : List<Card>
         {
             base.RemoveAt(id); // Removes the card based on its indexID.
             UpdateIndices(id); // Assuming this updates indices starting from the given index.
+            this.DecrementCache(card);
             return true;
         }
 
@@ -44,7 +48,7 @@ public class CardList : List<Card>
         this.RemoveAt(oldCard.indexID);
         //old list should have its cards update their indexes
         this.UpdateIndices(oldCard.indexID);
-
+        this.DecrementCache(card);
     }
     //shuffles a collection
     public void Shuffle()
@@ -60,6 +64,58 @@ public class CardList : List<Card>
             this[k] = this[n];
             this[n] = value;
         }
+    }
+
+    public int HowManyCoppes(Card card)
+    {
+        //check for cached coppies
+        var cachedcard = FindCachedCopy(card);
+        if (cachedcard != null)
+        {
+            return cachedcard.Value.Value;
+        }
+
+        //creates cached coppy and returns a value
+        int coppies = 0;
+        foreach (Card c in this)
+        {
+            if (card.Name == c.Name)
+            {
+                coppies++;
+            }
+        }
+        cachedCoppies.Add(card.Name, coppies);
+        return coppies;
+    }
+
+    private bool DecrementCache(Card card)
+    {
+        var cachedcard = FindCachedCopy(card);
+        if (cachedcard.HasValue)
+        {
+            if (cachedcard.Value.Value < 1)
+            {
+                UnityEngine.Debug.LogError("Removed Illigal Card copy");
+                return false;
+            }
+            else
+            {
+                int newValue = cachedcard.Value.Value - 1;
+                cachedCoppies[cachedcard.Value.Key] = cachedcard.Value.Value - 1;
+            }
+        }
+        return true;
+    }
+
+    private KeyValuePair<string, int>? FindCachedCopy(Card card)
+    {
+        if (cachedCoppies.TryGetValue(card.Name, out int count))
+        {
+            return new KeyValuePair<string, int>(card.Name, count);
+        }
+
+        UnityEngine.Debug.LogWarning("Card not found in cache: " + card.Name);
+        return null;
     }
 }
 

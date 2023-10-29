@@ -95,7 +95,7 @@ public class Mouse : MonoBehaviour
             ResetPreviousObject();
             previousObject = hitObject;
             // Assume Scale_Card() is a method in your Card component or similar
-            hitObject.GetComponent<Card>().Scale_Card();
+            hitObject.GetComponent<Card>().card3D.ScaleCard();
         }
 
         if (Input.GetMouseButtonDown(0))
@@ -128,7 +128,7 @@ public class Mouse : MonoBehaviour
             var card = previousObject.GetComponent<Card>();
             if (card != null)
             {
-                card.Scale_Card_Reset();
+                card.card3D.ScaleReset();
             }
 
             var baseTile = previousObject.GetComponent<BaseTile>();
@@ -144,7 +144,7 @@ public class Mouse : MonoBehaviour
         if (selectedObject != null)
         {
             selectedObject.GetComponent<Card>().Selection(false);
-            selectedObject.GetComponent<Card>().Scale_Card_Reset();
+            selectedObject.GetComponent<Card>().card3D.ScaleReset();
             selectedObject = null;
         }
     }

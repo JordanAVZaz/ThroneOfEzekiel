@@ -56,7 +56,7 @@ public class Hand : MonoBehaviour
 
     public void DrawCard()
     {
-        GameObject drawnCard = deck.Draw(); // Draw a card from the deck
+        GameObject drawnCard = deck.Draw().gameObject; // Draw a card from the deck
 
         if (drawnCard != null)
         {
