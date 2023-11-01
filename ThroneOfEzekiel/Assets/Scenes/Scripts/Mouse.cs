@@ -1,54 +1,48 @@
 using System;
 using UnityEngine;
 
-public class Mouse : MonoBehaviour
+public class Mouse : Singleton<Mouse>
 {
-    // Delegate and event for mouse click
     public delegate void MouseClickHandler(GameObject clickedObject);
     public event MouseClickHandler OnMouseClick;
-    private int handLayer = 1 << 6;
-    private int tileLayer = 1 << 7;
-    private Camera mainCamera;
-    private GameObject previousObject;
-    private GameObject selectedObject;
 
-      void Awake()
+    private int _handLayer = 1 << 6;
+    private int _tileLayer = 1 << 7;
+    private Camera _mainCamera;
+    private GameObject _previousObject;
+    public Card selectedCard { get; private set; }
+    protected override void Awake()
     {
-        mainCamera = Camera.main;
-        if (mainCamera == null)
-        {
-            Debug.LogError("Main camera not found");
-        }
+        base.Awake();
+        _mainCamera = Camera.main;
     }
-
-    void Start()
-    {
-        if (mainCamera == null)
-        {
-            Debug.LogError("Main camera is null. Please ensure a camera is tagged as \"MainCamera\" in the scene.");
-            return;
-        }
-    }
-
     void Update()
     {
-        if (mainCamera != null)
+        if (_mainCamera != null)
         {
             HandleMouseEvent();
         }
+        else
+        {
+            UnityEngine.Debug.LogError("Main Camera Null");
+        }
+
     }
 
     private void HandleMouseEvent()
     {
-        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+        Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
+            var hitObject = hit.collider.gameObject;
+            var hitCard = hitObject.GetComponent<Card>();
+
             switch (GameState.Instance.State)
             {
                 case GameState.Global_States.Idle:
-                    if ((1 << hit.collider.gameObject.layer) == handLayer)
+                    if ((1 << hitObject.layer) == _handLayer)
                     {
-                        HandleHandInteraction(hit);
+                        HandleCardInteraction(hitCard);
                     }
                     else
                     {
@@ -57,9 +51,9 @@ public class Mouse : MonoBehaviour
                     break;
 
                 case GameState.Global_States.HandCardSelected:
-                    if ((1 << hit.collider.gameObject.layer) == tileLayer)
+                    if ((1 << hitObject.layer) == _tileLayer)
                     {
-                        HandleBoardInteraction(hit);
+                        HandleBoardInteraction(hitObject);
                     }
                     else
                     {
@@ -68,70 +62,71 @@ public class Mouse : MonoBehaviour
 
                     if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Space))
                     {
-                        DeselectObject();
+                        DeselectCard();
                     }
                     break;
-
-                // Add more cases as necessary
 
                 default:
                     Debug.Log("Unhandled game state");
                     break;
             }
 
-            // Trigger the mouse click event if any object is clicked
             if (Input.GetMouseButtonDown(0) && OnMouseClick != null)
             {
-                OnMouseClick.Invoke(hit.collider.gameObject);
+                OnMouseClick.Invoke(hitObject);
             }
         }
     }
 
-    private void HandleHandInteraction(RaycastHit hit)
+    private void HandleCardInteraction(Card hitCard)
     {
-        GameObject hitObject = hit.collider.gameObject;
-        if (previousObject != hitObject && hitObject != selectedObject)
+        if (hitCard == null)
+        {
+            UnityEngine.Debug.LogError("No card component loaded on raycasted card");
+            return;
+        }
+
+        if (_previousObject != hitCard.gameObject && selectedCard != hitCard)
         {
             ResetPreviousObject();
-            previousObject = hitObject;
-            // Assume Scale_Card() is a method in your Card component or similar
-            hitObject.GetComponent<Card>().card3D.ScaleCard();
+            _previousObject = hitCard.gameObject;
+            //hover scale
+            hitCard.card3D.ScaleCard(1.5f);
         }
 
         if (Input.GetMouseButtonDown(0))
         {
-            if (selectedObject != null)
+            if (selectedCard != null)
             {
-                DeselectObject();
+                DeselectCard();
             }
 
-            selectedObject = hitObject;
-            hitObject.GetComponent<Card>().Selection(true);
+            selectedCard = hitCard;
+            hitCard.Selection(true);
         }
     }
 
-    private void HandleBoardInteraction(RaycastHit hit)
+    private void HandleBoardInteraction(GameObject hitObject)
     {
-        GameObject hitObject = hit.collider.gameObject;
-        if (previousObject != hitObject)
+        if (_previousObject != hitObject)
         {
             ResetPreviousObject();
-            previousObject = hitObject;
+            _previousObject = hitObject;
             hitObject.GetComponent<BaseTile>().Fill_Selectable_Color();
         }
     }
 
     private void ResetPreviousObject()
     {
-        if (previousObject != null)
+        if (_previousObject != null)
         {
-            var card = previousObject.GetComponent<Card>();
+            var card = _previousObject.GetComponent<Card>();
             if (card != null)
             {
                 card.card3D.ScaleReset();
             }
 
-            var baseTile = previousObject.GetComponent<BaseTile>();
+            var baseTile = _previousObject.GetComponent<BaseTile>();
             if (baseTile != null)
             {
                 baseTile.Fill_Default_Color();
@@ -139,18 +134,19 @@ public class Mouse : MonoBehaviour
         }
     }
 
-    private void DeselectObject()
+    private void DeselectCard()
     {
-        if (selectedObject != null)
+        if (selectedCard != null)
         {
-            selectedObject.GetComponent<Card>().Selection(false);
-            selectedObject.GetComponent<Card>().card3D.ScaleReset();
-            selectedObject = null;
+            selectedCard.Selection(false);
+            selectedCard.card3D.ScaleReset();
+            selectedCard = null;
         }
     }
-    public GameObject SelectedObject
+
+    public Card SelectedCard
     {
-        get => selectedObject;
-        set => selectedObject = value;
+        get => selectedCard;
+        set => selectedCard = value;
     }
 }

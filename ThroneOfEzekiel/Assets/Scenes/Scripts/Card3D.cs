@@ -2,72 +2,72 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Card3D : MonoBehaviour
+public class Card3D
 {
-    public float scaleFactor = 1.5f;
-    private Vector3 originalScale;
-    private Renderer cardRenderer;
-    private Color defaultOutlineColor = new Color(48 / 255.0f, 7 / 255.0f, 51 / 255.0f, 255 / 255.0f);
-    private Color selectionOutlineColor = new Color(168 / 255.0f, 28 / 255.0f, 178 / 255.0f, 255 / 255.0f);
+    public float ScaleFactor { get; set; } = 1f;
+    public GameObject cardObject;
+    private Vector3 _originalScale;
+    private Renderer _cardRenderer;
+    private Transform _transform;
 
-    private void Start()
+    private Color _defaultOutlineColor = new Color(48 / 255.0f, 7 / 255.0f, 51 / 255.0f, 255 / 255.0f);
+    private Color _selectionOutlineColor = new Color(168 / 255.0f, 28 / 255.0f, 178 / 255.0f, 255 / 255.0f);
+
+    public Card3D(GameObject rootObject)
     {
-        originalScale = transform.localScale;
-        cardRenderer = GetComponent<Renderer>();
+        cardObject = rootObject;
+        _transform = rootObject.transform;
+        _cardRenderer = rootObject.GetComponent<Renderer>();
+        Initialize();
+    }
 
-        if (cardRenderer != null)
+    private void Initialize()
+    {
+        _originalScale = _transform.localScale;
+        if (_cardRenderer != null)
         {
-            cardRenderer.material.SetColor("_OutlineColor", defaultOutlineColor);
+            _cardRenderer.material.SetColor("_OutlineColor", _defaultOutlineColor);
         }
         else
         {
-            Debug.LogError("Renderer not found on " + gameObject.name);
+            Debug.LogError("Renderer not found on " + _transform.gameObject.name);
         }
     }
 
-    public void VisualizeSelection(bool cardSelected)
+    public void VisualizeSelection()
     {
-        if (cardSelected)
-        {
-            GameState.Instance.Set_HandCardSelected();
-            ScaleCard(scaleFactor);
-            SetOutlineColor(selectionOutlineColor);
-        }
-        else
-        {
-            GameState.Instance.Set_Idle();
-            ScaleCard(1.0f);
-            SetOutlineColor(defaultOutlineColor);
-        }
+        ScaleCard(1.5f);
+        SetOutlineColor(_selectionOutlineColor);
     }
+
+    public void VisualizeDefault()
+    {
+        ScaleCard(ScaleFactor);
+        SetOutlineColor(_defaultOutlineColor);
+    }
+
     public void ScaleCard()
     {
-        transform.localScale = originalScale * scaleFactor;
+        _transform.localScale = _originalScale * ScaleFactor;
     }
+
     public void ScaleCard(float scaleMultiplier)
     {
-        transform.localScale = originalScale * scaleMultiplier;
+        _transform.localScale = _originalScale * scaleMultiplier;
     }
 
     public void ScaleReset()
     {
-        transform.localScale = originalScale;
+        _transform.localScale = _originalScale;
     }
 
-    public void ReLocate(float x,float y,float z)
-    {
-        transform.localPosition = new Vector3(x,y,z);
-    }
-    public void ReLocate(Vector3 loaction)
-    {
-        transform.localPosition = loaction;
-    }
 
     private void SetOutlineColor(Color color)
     {
-        if (cardRenderer != null)
+        if (_cardRenderer != null)
         {
-            cardRenderer.material.SetColor("_OutlineColor", color);
+            _cardRenderer.material.SetColor("_OutlineColor", color);
         }
     }
 }
+

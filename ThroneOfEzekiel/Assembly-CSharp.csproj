@@ -82,9 +82,11 @@
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
      <Compile Include="Assets\Scenes\Scripts\UnitCard.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
+     <Compile Include="Assets\Scenes\Scripts\Player.cs" />
      <Compile Include="Assets\Scenes\Scripts\Card3D.cs" />
      <Compile Include="Assets\Scenes\Scripts\CachedMaterials.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
+     <Compile Include="Assets\Scenes\Scripts\IMigrateCards.cs" />
      <Compile Include="Assets\Scenes\Scripts\Template Classes\Singleton.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
@@ -96,6 +98,7 @@
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
      <Compile Include="Assets\Scenes\Scripts\Template Classes\ISubscribeToGameState.cs" />
      <Compile Include="Assets\Scenes\Scripts\NumberBox_Handeler.cs" />
+     <Compile Include="Assets\Scenes\Scripts\GlobalPlayerManager.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
      <Compile Include="Assets\Scenes\Scripts\Deck.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

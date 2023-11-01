@@ -19,20 +19,20 @@ public class UnitCardData
 }
 public class UnitCard : Card
 {
-    UnitCardData data;
+    private UnitCardData data;
     // UI elements for displaying card properties
     public GameObject powerUI;
     public GameObject healthUI;
     // Override the start function for custom initialization
 
     // Initializes the card with properties from a JSON file
-    public void Initialize(string link, int index)
+    public override void Initialize(string link, int index)
     {
         base.Initialize(link,index);
         base.Name = name;
         data = new UnitCardData();
 
-        UnityEngine.Debug.Log("Initializing..............." + data.name);
+        //UnityEngine.Debug.Log("Initializing..............." + data.name);
 
         TextAsset cardJson = Resources.Load<TextAsset>(link);
         if (cardJson != null)

@@ -6,6 +6,12 @@ using UnityEngine;
 //state pattern
 public class GameState : Singleton<GameState>
 {
+    public enum Players
+    {
+        Player1,
+        Player2,
+        NoPlayer
+    }
     public enum Global_States
     {
         GameStart,
@@ -13,13 +19,19 @@ public class GameState : Singleton<GameState>
         Draw,
         Idle,
         HandCardSelected,
-        FieldCardSelected,
+        BoardCardSelected,
         GameEnd
     }
     public delegate void GameStateChangedDelegate(Global_States newState);
     public static event GameStateChangedDelegate OnGameStateChanged;
-    private Global_States currentState;
-
+    public Players _player { private set; get; }
+    private Global_States _currentState;
+    private int turn;
+    protected override void Awake()
+    {
+        base.Awake();
+        _currentState = Global_States.GameStart;
+    }
     private void Update()
     {
         HandleCurrentState();
@@ -27,20 +39,40 @@ public class GameState : Singleton<GameState>
 
     private void HandleCurrentState()
     {
-        switch (currentState)
+        switch (_currentState)
         {
             case Global_States.GameStart:
+                turn = 1;
+                _player = Players.Player1;
                 // Handle game start logic
                 Set_TurnTransition();
                 break;
 
             case Global_States.TurnTransition:
                 // Handle turn transition logic
+                if (_player == Players.Player2 || _player == Players.Player1 && turn == 1)
+                {
+                    _player = Players.Player1;
+
+                }
+                else if (_player == Players.Player1 && turn > 1)
+                {
+                    _player = Players.Player2;
+                    turn++;
+                }
                 Set_Draw();
                 break;
 
             case Global_States.Draw:
                 // Handle draw logic
+                if (turn == 1)
+                {
+                    GlobalPlayerManager.Instance.GetActivePlayer().Draw(5);
+                }
+                else
+                {
+                    GlobalPlayerManager.Instance.Draw();
+                }
                 Set_Idle();
                 break;
 
@@ -49,10 +81,10 @@ public class GameState : Singleton<GameState>
                 break;
 
             case Global_States.HandCardSelected:
-                // Handle when a card from the hand is selected
+                //Tile handles it own click via sub
                 break;
 
-            case Global_States.FieldCardSelected:
+            case Global_States.BoardCardSelected:
                 // Handle when a card from the field is selected
                 break;
 
@@ -61,17 +93,17 @@ public class GameState : Singleton<GameState>
                 break;
 
             default:
-                Debug.LogError("Unknown game state: " + currentState);
+                Debug.LogError("Unknown game state: " + _currentState);
                 break;
         }
     }
-      public Global_States State
+    public Global_States State
     {
-        get { return currentState; }
+        get { return _currentState; }
         set
         {
-            currentState = value;
-            OnGameStateChanged?.Invoke(currentState);
+            _currentState = value;
+            OnGameStateChanged?.Invoke(_currentState);
         }
     }
 
@@ -110,9 +142,9 @@ public class GameState : Singleton<GameState>
         Debug.Log("HandCardSelected");
     }
 
-    public void Set_FieldCardSelected()
+    public void Set_BoardCardSelected()
     {
-        State = Global_States.FieldCardSelected;
+        State = Global_States.BoardCardSelected;
         Console.WriteLine("FieldCardSelected");
         Debug.Log("FieldCardSelected");
     }
@@ -123,6 +155,6 @@ public class GameState : Singleton<GameState>
         Console.WriteLine("GameEnd");
         Debug.Log("GameEnd");
     }
-  
+
 
 }

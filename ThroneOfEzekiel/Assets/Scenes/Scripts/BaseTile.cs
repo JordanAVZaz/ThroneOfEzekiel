@@ -15,11 +15,10 @@ public class BaseTile : MonoBehaviour, ISubscribeToMouseClicks
     private List<Card> _deck;
     //Which players summoning zone is it in.
     public int playerX_summoningZone;
-    private GameObject _occupyingCard;
+    private Card _occupyingCard;
     private bool _occupied = false;
     private bool _augment = false;
     private bool _isHovered = false;
-
     private Vector2 _tileLocation;
     //position on grid and ID
     private Tuple<int, int> _gridID;
@@ -58,7 +57,7 @@ public class BaseTile : MonoBehaviour, ISubscribeToMouseClicks
         _mouse = FindObjectOfType<Mouse>();
         if (_mouse != null)
         {
-            Debug.Log("Mouse Linked");
+            //Debug.Log("Mouse Linked");
         }
         else
         {
@@ -72,12 +71,10 @@ public class BaseTile : MonoBehaviour, ISubscribeToMouseClicks
     }
 
     // Update is called once per frame
-    void Update()
+    void Update() { }
+
+    public void Put_In(Card card)
     {
-
-    }
-
-    public void Put_In(Card card){
         //CardManager.Instance.MigrateCard(card,);
     }
 
@@ -124,13 +121,14 @@ public class BaseTile : MonoBehaviour, ISubscribeToMouseClicks
         {
             case GameState.Global_States.HandCardSelected:
                 // Place the selected card onto the field
-                if (_occupyingCard == null && _mouse.SelectedObject.GetComponent<Card>() != null)
+                if (_occupyingCard == null && _mouse.SelectedCard != null)
                 {
-                    _occupyingCard = _mouse.SelectedObject;
-                    Vector3 newPosition = new Vector3(_tileLocation.x, 1, _tileLocation.y);
-                    _occupyingCard.GetComponent<Transform>().SetPositionAndRotation(newPosition, Quaternion.identity);
-                    _occupyingCard.GetComponent<Transform>().localScale *= 0.5f;
-                    _mouse.SelectedObject = null;
+                    _occupyingCard = _mouse.SelectedCard;
+                    GlobalPlayerManager.Instance.GetActivePlayer().hand.cardsInHand.MigrateCardTo(_occupyingCard,_deck);
+                    _occupyingCard.gameObject.layer = 1 << 7;
+                    //Vector3 newPosition = new Vector3();
+                    _occupyingCard.transform.localPosition = this.transform.localPosition;
+                    _mouse.SelectedCard = null;
                     GameState.Instance.Set_Idle();
                     Debug.Log("Card Placed on Tile");
                 }
@@ -142,7 +140,7 @@ public class BaseTile : MonoBehaviour, ISubscribeToMouseClicks
                 Debug.Log("Place the card on the tile");
                 break;
 
-            case GameState.Global_States.FieldCardSelected:
+            case GameState.Global_States.BoardCardSelected:
                 // Defer action to field card but make this tile the target
                 Debug.Log("Target this tile");
                 break;

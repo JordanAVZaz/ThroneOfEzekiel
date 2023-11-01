@@ -12,14 +12,14 @@ public class CardManager : Singleton<CardManager>
     {
         Card oldCard = card;
         newCollection.Add(card);
-        card.SetIndex(newCollection.Count - 1);
+        card.indexID = newCollection.Count - 1;
         oldCollection.RemoveAt(oldCard.indexID);
         //old list should have its cards update their indexes
         if (oldCollection.Count > 0)
         {
             for (int i = oldCard.indexID; i < oldCollection.Count; i++)
             {
-                oldCollection[i].GetComponent<Card>().SetIndex(i);
+                oldCollection[i].GetComponent<Card>().indexID = i;
             }
         }
 
