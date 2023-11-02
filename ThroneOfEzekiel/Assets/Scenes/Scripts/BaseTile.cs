@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using Color = UnityEngine.Color;
 
-public class BaseTile : MonoBehaviour, ISubscribeToMouseClicks
+public class BaseTile : MonoBehaviour
 {
     //signature
     public delegate void TileOccupationHandler(GameObject card);
@@ -33,7 +33,9 @@ public class BaseTile : MonoBehaviour, ISubscribeToMouseClicks
     private Color _selectableTileColor = new Color(35 / 255.0f, 94 / 255.0f, 183 / 255.0f, 1f);
     private Color _nonSelectableOutlineColor = new Color(200 / 255.0f, 50 / 255.0f, 16 / 255.0f, 1f);
     private Color _nonSelectableTileColor = new Color(149 / 255.0f, 40 / 255.0f, 16 / 255.0f, 1f);
-
+    public bool ISelectable { get; protected set; }
+    public bool IHover { get; protected set; }
+    public bool ITarget { get; protected set; }
 
     // Start is called before the first frame update
     public void Init(int row, int col)
@@ -112,56 +114,79 @@ public class BaseTile : MonoBehaviour, ISubscribeToMouseClicks
         }
     }
 
-    // clicked object found with raycast via subscription
-    public void OnMouseClick(GameObject clickedObject)
+    public void MigrateCard(Card card)
     {
-        if (clickedObject != gameObject) return; // Ensure this tile was the one clicked
-
-        switch (GameState.Instance.State)
+        switch (GameState.State)
         {
             case GameState.Global_States.HandCardSelected:
-                // Place the selected card onto the field
-                if (_occupyingCard == null && _mouse.SelectedCard != null)
+
+                if (_occupyingCard == null)
                 {
-                    _occupyingCard = _mouse.SelectedCard;
-                    GlobalPlayerManager.Instance.GetActivePlayer().hand.cardsInHand.MigrateCardTo(_occupyingCard,_deck);
+                    _occupyingCard = card;
+                    GlobalPlayerManager.Instance.GetActivePlayer().hand.cardsInHand.MigrateCardTo(_occupyingCard, _deck);
+                    //board layer
                     _occupyingCard.gameObject.layer = 1 << 7;
-                    //Vector3 newPosition = new Vector3();
                     _occupyingCard.transform.localPosition = this.transform.localPosition;
-                    _mouse.SelectedCard = null;
                     GameState.Instance.Set_Idle();
                     Debug.Log("Card Placed on Tile");
+                    break;
                 }
                 else
                 {
                     Debug.Log("Illegal Card Placement Attempt");
                     break;
                 }
-                Debug.Log("Place the card on the tile");
-                break;
 
             case GameState.Global_States.BoardCardSelected:
-                // Defer action to field card but make this tile the target
-                Debug.Log("Target this tile");
-                break;
 
-            default:
-                Debug.LogError("On Mouse Click Illegal State");
-                break;
+                if (_occupyingCard == null)
+                {
+                    _occupyingCard = card;
+                    GlobalPlayerManager.Instance.GetActivePlayer().hand.cardsInHand.MigrateCardTo(_occupyingCard, _deck);
+                    _occupyingCard.transform.localPosition = this.transform.localPosition;
+                    GameState.Instance.Set_Idle();
+                    Debug.Log("Card Placed on new Tile");
+                    break;
+                }
+                else if (_occupyingCard != null)
+                {
+                    Debug.Log("Attack");
+                    break;
+                }
+                else
+                {
+                    Debug.Log("Illegal Card Placement Attempt");
+                    break;
+                }
         }
     }
 
-    // it's more efficient with the cached mouse component
-    public void OnEnable()
+    public void OnStateChange()
     {
-        _mouse.OnMouseClick += OnMouseClick;
+        switch (GameState.State)
+        {
+            case (GameState.Global_States.Idle):
+                ITarget = false;
+                ISelectable = true;
+                IHover = false;
+                break;
+            case (GameState.Global_States.HandCardSelected):
+                ITarget = true;
+                ISelectable = false;
+                IHover = true;
+                break;
+            case (GameState.Global_States.BoardCardSelected):
+                ITarget = true;
+                ISelectable = false;
+                IHover = true;
+                break;
+            default:
+                ITarget = false;
+                ISelectable = false;
+                IHover = false;
+                break;
+        }
     }
-
-    public void OnDisable()
-    {
-        _mouse.OnMouseClick -= OnMouseClick;
-    }
-
 
     public bool IsHovered => _isHovered;
     public bool IsOccupied

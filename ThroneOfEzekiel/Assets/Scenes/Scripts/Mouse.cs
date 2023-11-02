@@ -4,149 +4,110 @@ using UnityEngine;
 public class Mouse : Singleton<Mouse>
 {
     public delegate void MouseClickHandler(GameObject clickedObject);
-    public event MouseClickHandler OnMouseClick;
-
+    public event MouseClickHandler OnMouseEvent;
     private int _handLayer = 1 << 6;
     private int _tileLayer = 1 << 7;
     private Camera _mainCamera;
     private GameObject _previousObject;
-    public Card selectedCard { get; private set; }
+    public GameObject eventObject { get; private set; }
+    public GameObject target;
+
     protected override void Awake()
     {
         base.Awake();
         _mainCamera = Camera.main;
+        Debug.Log("Awake called on Mouse");
     }
+
     void Update()
     {
         if (_mainCamera != null)
         {
             HandleMouseEvent();
+            HandleKeys();
+            UnityEngine.Debug.Log("update");
+
         }
         else
         {
             UnityEngine.Debug.LogError("Main Camera Null");
         }
-
     }
 
     private void HandleMouseEvent()
     {
         Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, _handLayer | _tileLayer))
         {
-            var hitObject = hit.collider.gameObject;
-            var hitCard = hitObject.GetComponent<Card>();
+            GameObject hitObject = hit.collider.gameObject;
 
-            switch (GameState.Instance.State)
+            if (hitObject != eventObject)
             {
-                case GameState.Global_States.Idle:
-                    if ((1 << hitObject.layer) == _handLayer)
-                    {
-                        HandleCardInteraction(hitCard);
-                    }
-                    else
-                    {
-                        ResetPreviousObject();
-                    }
-                    break;
+                // Reset eventObject if we have moved to a new object
+                ResetEventObject();
+                eventObject = hitObject;
 
-                case GameState.Global_States.HandCardSelected:
-                    if ((1 << hitObject.layer) == _tileLayer)
+                var card = eventObject.GetComponent<Card>();
+                var tile = eventObject.GetComponent<BaseTile>();
+                UnityEngine.Debug.Log("Hit");
+                // Only one of these should be non-null given an object can't be both a Card and a Tile
+                if (card != null)
+                {
+                    if (Input.GetMouseButtonDown(0) && card.ISelectable)
                     {
-                        HandleBoardInteraction(hitObject);
+                        card.Select();
                     }
-                    else
+                    else if (card.IHover)
                     {
-                        ResetPreviousObject();
+                        card.card3D.ScaleCard();
                     }
-
-                    if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Space))
+                }
+                else if (tile != null)
+                {
+                    if (tile.IHover)
                     {
-                        DeselectCard();
+                        tile.Fill_Selectable_Color();
                     }
-                    break;
-
-                default:
-                    Debug.Log("Unhandled game state");
-                    break;
-            }
-
-            if (Input.GetMouseButtonDown(0) && OnMouseClick != null)
-            {
-                OnMouseClick.Invoke(hitObject);
+                    if (Input.GetMouseButtonDown(0) && tile.ITarget != true)
+                    {
+                        //migrates card to the tile
+                        tile.MigrateCard(eventObject.GetComponent<Card>());
+                        eventObject = null;
+                    }
+                }
             }
         }
     }
 
-    private void HandleCardInteraction(Card hitCard)
+
+    private void HandleKeys()
     {
-        if (hitCard == null)
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Space))
         {
-            UnityEngine.Debug.LogError("No card component loaded on raycasted card");
-            return;
-        }
-
-        if (_previousObject != hitCard.gameObject && selectedCard != hitCard)
-        {
-            ResetPreviousObject();
-            _previousObject = hitCard.gameObject;
-            //hover scale
-            hitCard.card3D.ScaleCard(1.5f);
-        }
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (selectedCard != null)
+            if (eventObject != null && eventObject.GetComponent<Card>() != null)
             {
-                DeselectCard();
-            }
-
-            selectedCard = hitCard;
-            hitCard.Selection(true);
-        }
-    }
-
-    private void HandleBoardInteraction(GameObject hitObject)
-    {
-        if (_previousObject != hitObject)
-        {
-            ResetPreviousObject();
-            _previousObject = hitObject;
-            hitObject.GetComponent<BaseTile>().Fill_Selectable_Color();
-        }
-    }
-
-    private void ResetPreviousObject()
-    {
-        if (_previousObject != null)
-        {
-            var card = _previousObject.GetComponent<Card>();
-            if (card != null)
-            {
-                card.card3D.ScaleReset();
-            }
-
-            var baseTile = _previousObject.GetComponent<BaseTile>();
-            if (baseTile != null)
-            {
-                baseTile.Fill_Default_Color();
+                eventObject.GetComponent<Card>().card3D.VisualizeReset();
+                eventObject = null;
             }
         }
     }
 
-    private void DeselectCard()
+    private void ResetEventObject()
     {
-        if (selectedCard != null)
+        if (eventObject != null)
         {
-            selectedCard.Selection(false);
-            selectedCard.card3D.ScaleReset();
-            selectedCard = null;
+            if (eventObject.GetComponent<Card>() != null)
+            {
+                eventObject.GetComponent<Card>().card3D.VisualizeReset();
+            }
+            else if (eventObject.GetComponent<BaseTile>() != null)
+            {
+                eventObject.GetComponent<BaseTile>().Fill_Default_Color();
+            }
+            else
+            {
+                //something else in the future
+            }
         }
-    }
-
-    public Card SelectedCard
-    {
-        get => selectedCard;
-        set => selectedCard = value;
     }
 }

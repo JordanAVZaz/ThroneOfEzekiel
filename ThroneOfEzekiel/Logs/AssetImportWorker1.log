@@ -1,0 +1,771 @@
+Using pre-set license
+Built from '2022.3/release' branch; Version is '2022.3.5f1 (9674261d40ee) revision 9860134'; Using compiler version '192829333'; Build Type 'Release'
+OS: 'Windows 10  (10.0.19045) 64bit Core' Language: 'en' Physical Memory: 16278 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 1
+
+COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\2022.3.5f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker1
+-projectPath
+C:/Users/Jordan/Documents/GitHub/ThroneOfEzekiel/ThroneOfEzekiel
+-logFile
+Logs/AssetImportWorker1.log
+-srvPort
+49846
+Successfully changed project path to: C:/Users/Jordan/Documents/GitHub/ThroneOfEzekiel/ThroneOfEzekiel
+C:/Users/Jordan/Documents/GitHub/ThroneOfEzekiel/ThroneOfEzekiel
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+    "memorysetup-allocator-temp-initial-block-size-main=262144"
+    "memorysetup-allocator-temp-initial-block-size-worker=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gfx=262144"
+Player connection [15424] Host "[IP] 192.168.1.103 [Port] 0 [Flags] 2 [Guid] 3954013339 [EditorId] 3954013339 [Version] 1048832 [Id] WindowsEditor(7,LAPTOP-JAD4P36U) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
+
+Player connection [15424] Host "[IP] 192.168.1.103 [Port] 0 [Flags] 2 [Guid] 3954013339 [EditorId] 3954013339 [Version] 1048832 [Id] WindowsEditor(7,LAPTOP-JAD4P36U) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
+
+Refreshing native plugins compatible for Editor in 31.52 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2022.3.5f1 (9674261d40ee)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2022.3.5f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Users/Jordan/Documents/GitHub/ThroneOfEzekiel/ThroneOfEzekiel/Assets
+GfxDevice: creating device client; threaded=0; jobified=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: Intel(R) HD Graphics 620 (ID=0x5916)
+    Vendor:   Intel
+    VRAM:     8139 MB
+    Driver:   31.0.101.2112
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2022.3.5f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2022.3.5f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/2022.3.5f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56720
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2022.3.5f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2022.3.5f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.033042 seconds.
+- Loaded All Assemblies, in  1.508 seconds
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  1.125 seconds
+Domain Reload Profiling: 2626ms
+	BeginReloadAssembly (403ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (0ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (1ms)
+		CreateAndSetChildDomain (4ms)
+	RebuildCommonClasses (179ms)
+	RebuildNativeTypeToScriptingClass (81ms)
+	initialDomainReloadingComplete (221ms)
+	LoadAllAssembliesAndSetupDomain (615ms)
+		LoadAssemblies (395ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (586ms)
+			TypeCache.Refresh (583ms)
+				TypeCache.ScanAssembly (531ms)
+			ScanForSourceGeneratedMonoScriptInfo (1ms)
+			ResolveRequiredComponents (1ms)
+	FinalizeReload (1126ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (908ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (42ms)
+			SetLoadedEditorAssemblies (27ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (7ms)
+			ProcessInitializeOnLoadAttributes (671ms)
+			ProcessInitializeOnLoadMethodAttributes (161ms)
+			AfterProcessingInitializeOnLoad (0ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (0ms)
+========================================================================
+Worker process is ready to serve import requests
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image C:\Users\Jordan\Documents\GitHub\ThroneOfEzekiel\ThroneOfEzekiel\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image C:\Users\Jordan\Documents\GitHub\ThroneOfEzekiel\ThroneOfEzekiel\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
+- Loaded All Assemblies, in  2.980 seconds
+Refreshing native plugins compatible for Editor in 8.61 ms, found 3 plugins.
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  1.581 seconds
+Domain Reload Profiling: 4555ms
+	BeginReloadAssembly (852ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (22ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (2ms)
+		CreateAndSetChildDomain (197ms)
+	RebuildCommonClasses (264ms)
+	RebuildNativeTypeToScriptingClass (77ms)
+	initialDomainReloadingComplete (219ms)
+	LoadAllAssembliesAndSetupDomain (1560ms)
+		LoadAssemblies (1097ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (964ms)
+			TypeCache.Refresh (912ms)
+				TypeCache.ScanAssembly (876ms)
+			ScanForSourceGeneratedMonoScriptInfo (38ms)
+			ResolveRequiredComponents (14ms)
+	FinalizeReload (1583ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (1099ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (23ms)
+			SetLoadedEditorAssemblies (11ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (175ms)
+			ProcessInitializeOnLoadAttributes (810ms)
+			ProcessInitializeOnLoadMethodAttributes (57ms)
+			AfterProcessingInitializeOnLoad (21ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (19ms)
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.11 seconds
+Refreshing native plugins compatible for Editor in 9.22 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3141 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 31 unused Assets / (56.6 KB). Loaded Objects now: 3610.
+Memory consumption went from 123.0 MB to 123.0 MB.
+Total: 7.248600 ms (FindLiveObjects: 0.515100 ms CreateObjectMapping: 0.367300 ms MarkObjects: 5.991700 ms  DeleteObjects: 0.372000 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:CustomObjectIndexerAttribute: 756ad292c208cfabdd7b50bc23989ffe -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 432.529074 seconds.
+  path: Assets/Scenes/Scripts/Card.cs
+  artifactKey: Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Scripts/Card.cs using Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.003613 seconds
+Import Error Code:(4)
+Message: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+  ERROR: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.000052 seconds.
+  path: Assets/Scenes/Scripts/BaseTile.cs
+  artifactKey: Guid(1ab9ac65c6d7c7f4fa24f9367cb000f9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Scripts/BaseTile.cs using Guid(1ab9ac65c6d7c7f4fa24f9367cb000f9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '05141ac5b3fe6f5d8c819bdd38056d06') in 0.002684 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.035917 seconds.
+  path: Assets/Scenes/Scripts/Card.cs
+  artifactKey: Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Scripts/Card.cs using Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.001741 seconds
+Import Error Code:(4)
+Message: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+  ERROR: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.041229 seconds.
+  path: Assets/Scenes/Scripts/Card.cs
+  artifactKey: Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Scripts/Card.cs using Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.001436 seconds
+Import Error Code:(4)
+Message: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+  ERROR: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.033759 seconds.
+  path: Assets/Scenes/Scripts/Card.cs
+  artifactKey: Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Scripts/Card.cs using Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.001287 seconds
+Import Error Code:(4)
+Message: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+  ERROR: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.033520 seconds.
+  path: Assets/Scenes/Scripts/Card.cs
+  artifactKey: Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Scripts/Card.cs using Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.000859 seconds
+Import Error Code:(4)
+Message: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+  ERROR: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.031323 seconds.
+  path: Assets/Scenes/Scripts/Card.cs
+  artifactKey: Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Scripts/Card.cs using Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.000865 seconds
+Import Error Code:(4)
+Message: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+  ERROR: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.032012 seconds.
+  path: Assets/Scenes/Scripts/Card.cs
+  artifactKey: Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Scripts/Card.cs using Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.000823 seconds
+Import Error Code:(4)
+Message: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+  ERROR: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.031216 seconds.
+  path: Assets/Scenes/Scripts/Card.cs
+  artifactKey: Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Scripts/Card.cs using Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.001567 seconds
+Import Error Code:(4)
+Message: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+  ERROR: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.032220 seconds.
+  path: Assets/Scenes/Scripts/Card.cs
+  artifactKey: Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Scripts/Card.cs using Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.001002 seconds
+Import Error Code:(4)
+Message: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+  ERROR: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.031376 seconds.
+  path: Assets/Scenes/Scripts/Card.cs
+  artifactKey: Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Scripts/Card.cs using Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.001156 seconds
+Import Error Code:(4)
+Message: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+  ERROR: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.031076 seconds.
+  path: Assets/Scenes/Scripts/Card.cs
+  artifactKey: Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Scripts/Card.cs using Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.001239 seconds
+Import Error Code:(4)
+Message: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+  ERROR: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.047446 seconds.
+  path: Assets/Scenes/Scripts/Card.cs
+  artifactKey: Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Scripts/Card.cs using Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.001814 seconds
+Import Error Code:(4)
+Message: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+  ERROR: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.006530 seconds.
+  path: Assets/Scenes/Scripts/Card.cs
+  artifactKey: Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Scripts/Card.cs using Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.007764 seconds
+Import Error Code:(4)
+Message: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+  ERROR: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.028665 seconds.
+  path: Assets/Scenes/Scripts/Card.cs
+  artifactKey: Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Scripts/Card.cs using Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.001957 seconds
+Import Error Code:(4)
+Message: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+  ERROR: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.039051 seconds.
+  path: Assets/Scenes/Scripts/Card.cs
+  artifactKey: Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Scripts/Card.cs using Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.001224 seconds
+Import Error Code:(4)
+Message: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+  ERROR: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.043479 seconds.
+  path: Assets/Scenes/Scripts/Card.cs
+  artifactKey: Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Scripts/Card.cs using Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.001201 seconds
+Import Error Code:(4)
+Message: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+  ERROR: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.034247 seconds.
+  path: Assets/Scenes/Scripts/Card.cs
+  artifactKey: Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Scripts/Card.cs using Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.001577 seconds
+Import Error Code:(4)
+Message: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+  ERROR: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.035165 seconds.
+  path: Assets/Scenes/Scripts/Card.cs
+  artifactKey: Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Scripts/Card.cs using Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.001820 seconds
+Import Error Code:(4)
+Message: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+  ERROR: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.098638 seconds.
+  path: Assets/Scenes/Scripts/Card.cs
+  artifactKey: Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Scripts/Card.cs using Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.002932 seconds
+Import Error Code:(4)
+Message: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+  ERROR: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.008350 seconds.
+  path: Assets/Scenes/Scripts/Card.cs
+  artifactKey: Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Scripts/Card.cs using Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.006599 seconds
+Import Error Code:(4)
+Message: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+  ERROR: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.705101 seconds.
+  path: Assets/Scenes/Scripts/Card.cs
+  artifactKey: Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Scripts/Card.cs using Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.002377 seconds
+Import Error Code:(4)
+Message: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+  ERROR: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.052110 seconds.
+  path: Assets/Scenes/Scripts/Card.cs
+  artifactKey: Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Scripts/Card.cs using Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.001702 seconds
+Import Error Code:(4)
+Message: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+  ERROR: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.063705 seconds.
+  path: Assets/Scenes/Scripts/Card.cs
+  artifactKey: Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Scripts/Card.cs using Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.003304 seconds
+Import Error Code:(4)
+Message: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+  ERROR: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.004106 seconds.
+  path: Assets/Scenes/Scripts/Card.cs
+  artifactKey: Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Scripts/Card.cs using Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.004365 seconds
+Import Error Code:(4)
+Message: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+  ERROR: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.009601 seconds.
+  path: Assets/Scenes/Scripts/Card.cs
+  artifactKey: Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Scripts/Card.cs using Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.082165 seconds
+Import Error Code:(4)
+Message: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+  ERROR: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.002027 seconds.
+  path: Assets/Scenes/Scripts/Card.cs
+  artifactKey: Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Scripts/Card.cs using Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.003782 seconds
+Import Error Code:(4)
+Message: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+  ERROR: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.343855 seconds.
+  path: Assets/Scenes/Scripts/Card.cs
+  artifactKey: Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Scripts/Card.cs using Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.002401 seconds
+Import Error Code:(4)
+Message: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+  ERROR: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.003677 seconds.
+  path: Assets/Scenes/Scripts/Card.cs
+  artifactKey: Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Scripts/Card.cs using Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.060636 seconds
+Import Error Code:(4)
+Message: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+  ERROR: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.004564 seconds.
+  path: Assets/Scenes/Scripts/Card.cs
+  artifactKey: Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Scripts/Card.cs using Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.001537 seconds
+Import Error Code:(4)
+Message: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+  ERROR: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.049245 seconds.
+  path: Assets/Scenes/Scripts/Card.cs
+  artifactKey: Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Scripts/Card.cs using Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.006311 seconds
+Import Error Code:(4)
+Message: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+  ERROR: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.005231 seconds.
+  path: Assets/Scenes/Scripts/Card.cs
+  artifactKey: Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Scripts/Card.cs using Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.002139 seconds
+Import Error Code:(4)
+Message: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+  ERROR: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.030032 seconds.
+  path: Assets/Scenes/Scripts/Card.cs
+  artifactKey: Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Scripts/Card.cs using Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.003364 seconds
+Import Error Code:(4)
+Message: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+  ERROR: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.030473 seconds.
+  path: Assets/Scenes/Scripts/Card.cs
+  artifactKey: Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Scripts/Card.cs using Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.001077 seconds
+Import Error Code:(4)
+Message: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+  ERROR: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.039918 seconds.
+  path: Assets/Scenes/Scripts/Card.cs
+  artifactKey: Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Scripts/Card.cs using Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.001714 seconds
+Import Error Code:(4)
+Message: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+  ERROR: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.004168 seconds.
+  path: Assets/Scenes/Scripts/Card.cs
+  artifactKey: Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Scripts/Card.cs using Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.009631 seconds
+Import Error Code:(4)
+Message: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+  ERROR: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.027660 seconds.
+  path: Assets/Scenes/Scripts/Card.cs
+  artifactKey: Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Scripts/Card.cs using Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.001773 seconds
+Import Error Code:(4)
+Message: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+  ERROR: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.036356 seconds.
+  path: Assets/Scenes/Scripts/Card.cs
+  artifactKey: Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Scripts/Card.cs using Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.000966 seconds
+Import Error Code:(4)
+Message: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+  ERROR: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.048550 seconds.
+  path: Assets/Scenes/Scripts/Card.cs
+  artifactKey: Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Scripts/Card.cs using Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.000870 seconds
+Import Error Code:(4)
+Message: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+  ERROR: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.001813 seconds.
+  path: Assets/Scenes/Scripts/Card.cs
+  artifactKey: Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Scripts/Card.cs using Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.005256 seconds
+Import Error Code:(4)
+Message: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+  ERROR: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.023465 seconds.
+  path: Assets/Scenes/Scripts/Card.cs
+  artifactKey: Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Scripts/Card.cs using Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00000000000000000000000000000000') in 0.002158 seconds
+Import Error Code:(4)
+Message: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+  ERROR: Build asset version error: assets/scenes/scripts/card.cs in SourceAssetDB has modification time of '2023-11-02T04:40:14.6515304Z' while content on disk has modification time of '2023-11-02T07:16:21.42617Z'
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.183175 seconds.
+  path: Assets/Scenes/Scripts/Card.cs
+  artifactKey: Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Scripts/Card.cs using Guid(881a6aeccb80ac346b0263c914417ee8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '422255f5056db816d7260a5e79223eb7') in 0.006260 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image C:\Users\Jordan\Documents\GitHub\ThroneOfEzekiel\ThroneOfEzekiel\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image C:\Users\Jordan\Documents\GitHub\ThroneOfEzekiel\ThroneOfEzekiel\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
+- Loaded All Assemblies, in  3.835 seconds
+Refreshing native plugins compatible for Editor in 11.72 ms, found 3 plugins.
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  1.488 seconds
+Domain Reload Profiling: 5310ms
+	BeginReloadAssembly (1445ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (12ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (117ms)
+	RebuildCommonClasses (586ms)
+	RebuildNativeTypeToScriptingClass (234ms)
+	initialDomainReloadingComplete (137ms)
+	LoadAllAssembliesAndSetupDomain (1419ms)
+		LoadAssemblies (1851ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (736ms)
+			TypeCache.Refresh (722ms)
+				TypeCache.ScanAssembly (704ms)
+			ScanForSourceGeneratedMonoScriptInfo (0ms)
+			ResolveRequiredComponents (13ms)
+	FinalizeReload (1488ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (500ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (10ms)
+			SetLoadedEditorAssemblies (5ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (94ms)
+			ProcessInitializeOnLoadAttributes (351ms)
+			ProcessInitializeOnLoadMethodAttributes (27ms)
+			AfterProcessingInitializeOnLoad (13ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (11ms)
+Refreshing native plugins compatible for Editor in 4.94 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3119 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 22 unused Assets / (30.6 KB). Loaded Objects now: 3613.
+Memory consumption went from 118.7 MB to 118.7 MB.
+Total: 4.808300 ms (FindLiveObjects: 0.390400 ms CreateObjectMapping: 0.377900 ms MarkObjects: 3.952700 ms  DeleteObjects: 0.085800 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:CustomObjectIndexerAttribute: 756ad292c208cfabdd7b50bc23989ffe -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image C:\Users\Jordan\Documents\GitHub\ThroneOfEzekiel\ThroneOfEzekiel\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image C:\Users\Jordan\Documents\GitHub\ThroneOfEzekiel\ThroneOfEzekiel\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
+- Loaded All Assemblies, in  1.180 seconds
+Refreshing native plugins compatible for Editor in 7.67 ms, found 3 plugins.
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  4.538 seconds
+Domain Reload Profiling: 5715ms
+	BeginReloadAssembly (212ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (9ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (49ms)
+	RebuildCommonClasses (67ms)
+	RebuildNativeTypeToScriptingClass (22ms)
+	initialDomainReloadingComplete (61ms)
+	LoadAllAssembliesAndSetupDomain (814ms)
+		LoadAssemblies (442ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (473ms)
+			TypeCache.Refresh (466ms)
+				TypeCache.ScanAssembly (449ms)
+			ScanForSourceGeneratedMonoScriptInfo (0ms)
+			ResolveRequiredComponents (7ms)
+	FinalizeReload (4539ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (1866ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (42ms)
+			SetLoadedEditorAssemblies (21ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (313ms)
+			ProcessInitializeOnLoadAttributes (1318ms)
+			ProcessInitializeOnLoadMethodAttributes (124ms)
+			AfterProcessingInitializeOnLoad (47ms)
+			EditorAssembliesLoaded (1ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (46ms)
+Refreshing native plugins compatible for Editor in 18.62 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3120 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 22 unused Assets / (30.8 KB). Loaded Objects now: 3616.
+Memory consumption went from 119.0 MB to 118.9 MB.
+Total: 9.683100 ms (FindLiveObjects: 2.296600 ms CreateObjectMapping: 0.687900 ms MarkObjects: 6.509900 ms  DeleteObjects: 0.183600 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:CustomObjectIndexerAttribute: 756ad292c208cfabdd7b50bc23989ffe -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 196.795255 seconds.
+  path: Assets/Scenes/Scripts/Mouse.cs
+  artifactKey: Guid(d2139ee1b6058c545bc0e10d9e22f814) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Scripts/Mouse.cs using Guid(d2139ee1b6058c545bc0e10d9e22f814) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '96dca2fb2491b29e7b7f257daa077fe1') in 0.003239 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0

@@ -40,10 +40,15 @@ public class Card3D
         SetOutlineColor(_selectionOutlineColor);
     }
 
-    public void VisualizeDefault()
+    public void VisualizeReset()
     {
-        ScaleCard(ScaleFactor);
+        ScaleReset();
         SetOutlineColor(_defaultOutlineColor);
+    }
+
+    public void VisualizeHover()
+    {
+        _transform.localScale = _originalScale * 1.5f;
     }
 
     public void ScaleCard()

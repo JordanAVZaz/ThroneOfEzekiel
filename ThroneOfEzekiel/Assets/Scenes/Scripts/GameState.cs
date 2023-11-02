@@ -1,10 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 //state pattern
-public class GameState : Singleton<GameState>
+public class GameState : Singleton<GameState>, ISubscribeToMouseClicks
 {
     public enum Players
     {
@@ -22,11 +23,13 @@ public class GameState : Singleton<GameState>
         BoardCardSelected,
         GameEnd
     }
-    public delegate void GameStateChangedDelegate(Global_States newState);
-    public static event GameStateChangedDelegate OnGameStateChanged;
+    public delegate void ChangeState();
+    public static event ChangeState onStateChange;
+    //public delegate void GameStateChangedDelegate(Global_States newState);
+    //public static event GameStateChangedDelegate OnGameStateChanged;
     public Players _player { private set; get; }
-    private Global_States _currentState;
-    private int turn;
+    private static Global_States _currentState;
+    private static int turn;
     protected override void Awake()
     {
         base.Awake();
@@ -97,13 +100,13 @@ public class GameState : Singleton<GameState>
                 break;
         }
     }
-    public Global_States State
+    public static Global_States State
     {
         get { return _currentState; }
         set
         {
             _currentState = value;
-            OnGameStateChanged?.Invoke(_currentState);
+            onStateChange?.Invoke();
         }
     }
 
@@ -156,5 +159,36 @@ public class GameState : Singleton<GameState>
         Debug.Log("GameEnd");
     }
 
+    public void OnMouseClick(GameObject clickedObject)
+    {
+        if (clickedObject.GetComponent<Card>() != null)
+        {
+            switch (clickedObject.layer)
+            {
+                //hand layer
+                case (6):
+                    Set_HandCardSelected();
+                    break;
+                //board layer
+                case (7):
+                    Set_BoardCardSelected();
+                    break;
+                default:
+                    UnityEngine.Debug.LogError($"{clickedObject} is outside layer scope");
+                    break;
+            }
+        }
+        else
+            Debug.LogError($"{clickedObject} doesnt have card component");
+    }
 
+    public void OnEnable()
+    {
+        Mouse.Instance.OnMouseEvent += OnMouseClick;
+    }
+
+    public void OnDisable()
+    {
+        Mouse.Instance.OnMouseEvent -= OnMouseClick;
+    }
 }

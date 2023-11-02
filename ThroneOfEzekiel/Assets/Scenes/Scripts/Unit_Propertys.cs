@@ -14,7 +14,7 @@ public class Unit_Propertys : MonoBehaviour
     {
         Magic,
         Sword,
-        Mace,
+        Lance,
         Bow,
         Ruler
     }
