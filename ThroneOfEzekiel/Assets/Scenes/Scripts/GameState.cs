@@ -53,11 +53,16 @@ public class GameState : Singleton<GameState>
                 if (_player == Players.Player2 || _player == Players.Player1 && turn == 1)
                 {
                     _player = Players.Player1;
-
+                    Debug.Log($"Player 1 turn {turn}");
+                    GlobalPlayerManager.Instance.player1.hand.gameObject.SetActive(true);
+                    GlobalPlayerManager.Instance.player2.hand.gameObject.SetActive(false);
                 }
                 else if (_player == Players.Player1 && turn > 1)
                 {
                     _player = Players.Player2;
+                    Debug.Log($"Player 1 turn {turn}");
+                    GlobalPlayerManager.Instance.player1.hand.gameObject.SetActive(false);
+                    GlobalPlayerManager.Instance.player2.hand.gameObject.SetActive(true);
                     turn++;
                 }
                 Set_Draw();
@@ -155,6 +160,4 @@ public class GameState : Singleton<GameState>
         Console.WriteLine("GameEnd");
         Debug.Log("GameEnd");
     }
-
-
 }

@@ -11,11 +11,13 @@ public class Mouse : Singleton<Mouse>
     private Camera _mainCamera;
     private GameObject _previousObject;
     public Card selectedCard { get; private set; }
+
     protected override void Awake()
     {
         base.Awake();
         _mainCamera = Camera.main;
     }
+
     void Update()
     {
         if (_mainCamera != null)
@@ -26,7 +28,6 @@ public class Mouse : Singleton<Mouse>
         {
             UnityEngine.Debug.LogError("Main Camera Null");
         }
-
     }
 
     private void HandleMouseEvent()
@@ -54,15 +55,16 @@ public class Mouse : Singleton<Mouse>
                     if ((1 << hitObject.layer) == _tileLayer)
                     {
                         HandleBoardInteraction(hitObject);
+
+                        if (Input.GetMouseButtonDown(0) && OnMouseClick != null)
+                        {
+                            OnMouseClick.Invoke(hitObject);
+                            DeselectCard();
+                        }
                     }
                     else
                     {
-                        ResetPreviousObject();
-                    }
-
-                    if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Space))
-                    {
-                        DeselectCard();
+                        //ResetPreviousObject();
                     }
                     break;
 
@@ -70,14 +72,12 @@ public class Mouse : Singleton<Mouse>
                     Debug.Log("Unhandled game state");
                     break;
             }
-
-            if (Input.GetMouseButtonDown(0) && OnMouseClick != null)
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Space))
             {
-                OnMouseClick.Invoke(hitObject);
+                DeselectCard();
             }
         }
     }
-
     private void HandleCardInteraction(Card hitCard)
     {
         if (hitCard == null)
@@ -90,17 +90,16 @@ public class Mouse : Singleton<Mouse>
         {
             ResetPreviousObject();
             _previousObject = hitCard.gameObject;
-            //hover scale
-            hitCard.card3D.ScaleCard(1.5f);
+            hitCard.card3D.VisualizeHover();
         }
 
         if (Input.GetMouseButtonDown(0))
         {
             if (selectedCard != null)
             {
-                DeselectCard();
+                //DeselectCard();
+                ResetPreviousObject();
             }
-
             selectedCard = hitCard;
             hitCard.Selection(true);
         }
@@ -118,14 +117,22 @@ public class Mouse : Singleton<Mouse>
 
     private void ResetPreviousObject()
     {
-        if (_previousObject != null)
-        {
-            var card = _previousObject.GetComponent<Card>();
-            if (card != null)
-            {
-                card.card3D.ScaleReset();
-            }
+        if (_previousObject == null) return;
 
+        var card = _previousObject.GetComponent<Card>();
+        if (card != null)
+        {
+            if (card == selectedCard)
+            {
+                card.card3D.ScaleReset();//should keep border until out of the gamestate
+            }
+            else
+            {
+                card.card3D.VisualizeDefault();
+            }
+        }
+        else
+        {
             var baseTile = _previousObject.GetComponent<BaseTile>();
             if (baseTile != null)
             {
@@ -139,7 +146,6 @@ public class Mouse : Singleton<Mouse>
         if (selectedCard != null)
         {
             selectedCard.Selection(false);
-            selectedCard.card3D.ScaleReset();
             selectedCard = null;
         }
     }

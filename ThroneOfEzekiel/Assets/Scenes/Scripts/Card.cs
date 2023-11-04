@@ -20,7 +20,7 @@ public class Card : MonoBehaviour
 
     public void Selection(bool cardSelected)
     {
-        if (card3D != null || cardSelected)
+        if (card3D != null && cardSelected)
         {
             switch (card3D.cardObject.layer)
             {
@@ -30,13 +30,11 @@ public class Card : MonoBehaviour
                     break;
                 //hand layer
                 case (6):
-                    card3D.ScaleFactor = 1f;
                     GameState.Instance.Set_HandCardSelected();
                     card3D.VisualizeSelection();
                     break;
                 //board layer
                 case (7):
-                    card3D.ScaleFactor = .5f;
                     GameState.Instance.Set_BoardCardSelected();
                     card3D.VisualizeSelection();
                     break;

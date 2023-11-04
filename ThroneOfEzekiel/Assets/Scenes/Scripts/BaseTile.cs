@@ -12,7 +12,7 @@ public class BaseTile : MonoBehaviour, ISubscribeToMouseClicks
     // event
     public event TileOccupationHandler OnCardMove;
     //card in this tile
-    private List<Card> _deck;
+    private CardList _deck;
     //Which players summoning zone is it in.
     public int playerX_summoningZone;
     private Card _occupyingCard;
@@ -34,11 +34,10 @@ public class BaseTile : MonoBehaviour, ISubscribeToMouseClicks
     private Color _nonSelectableOutlineColor = new Color(200 / 255.0f, 50 / 255.0f, 16 / 255.0f, 1f);
     private Color _nonSelectableTileColor = new Color(149 / 255.0f, 40 / 255.0f, 16 / 255.0f, 1f);
 
-
     // Start is called before the first frame update
     public void Init(int row, int col)
     {
-        _deck = new List<Card>();
+        _deck = new CardList();
         _tileLocation = new Vector2(row, col);
         _gridID = new Tuple<int, int>(row, col);
         _occupyingCard = null;
@@ -116,6 +115,7 @@ public class BaseTile : MonoBehaviour, ISubscribeToMouseClicks
     public void OnMouseClick(GameObject clickedObject)
     {
         if (clickedObject != gameObject) return; // Ensure this tile was the one clicked
+        CardList hand = GlobalPlayerManager.Instance.GetActivePlayer().hand.cardsInHand;
 
         switch (GameState.Instance.State)
         {
@@ -124,12 +124,16 @@ public class BaseTile : MonoBehaviour, ISubscribeToMouseClicks
                 if (_occupyingCard == null && _mouse.SelectedCard != null)
                 {
                     _occupyingCard = _mouse.SelectedCard;
-                    GlobalPlayerManager.Instance.GetActivePlayer().hand.cardsInHand.MigrateCardTo(_occupyingCard,_deck);
-                    _occupyingCard.gameObject.layer = 1 << 7;
-                    //Vector3 newPosition = new Vector3();
+
+                    if (!GlobalPlayerManager.Instance.GetActivePlayer().hand.cardsInHand.Contains(_occupyingCard))
+                    {
+                        Debug.LogError($"can't find {_occupyingCard}");
+                        return;
+                    }
+                    GlobalPlayerManager.Instance.GetActivePlayer().hand.cardsInHand.MigrateCardTo(_occupyingCard, _deck);
+                    _occupyingCard.gameObject.layer = 7;//board layer
                     _occupyingCard.transform.localPosition = this.transform.localPosition;
-                    _mouse.SelectedCard = null;
-                    GameState.Instance.Set_Idle();
+                    _occupyingCard.card3D.SetBoardSize();
                     Debug.Log("Card Placed on Tile");
                 }
                 else

@@ -48,28 +48,32 @@ public class Player
     {
         if (deck.Count < 1)
         {
-            UnityEngine.Debug.Log("No more cards");
+            Debug.Log("No more cards to draw.");
             return;
         }
-        deck[0].gameObject.SetActive(true);
-        //hand layer
-        deck[0].gameObject.layer = 1 << 6;
-        deck.MigrateCardTo(deck[0], hand.cardsInHand);
-        hand.UpdateCardPlacement();
+
+        Card cardToDraw = deck[0];
+        cardToDraw.gameObject.SetActive(true);
+        cardToDraw.gameObject.layer = 6;
+
+        if (deck.MigrateCardTo(cardToDraw, hand.cardsInHand))
+        {
+            hand.UpdateCardPlacement();
+        }
+        else
+        {
+            // Handle the error if the card couldn't be migrated.
+            Debug.LogError("Failed to draw a card from the deck.");
+        }
     }
     public void Draw(int n)
     {
         for (int i = 0; i < n; i++)
         {
-            if (deck.Count < 1)
-            {
-                UnityEngine.Debug.Log("No more cards");
-                return;
-            }
-            deck[0].gameObject.SetActive(true);
-            deck.MigrateCardTo(deck[0], hand.cardsInHand);
-            hand.UpdateCardPlacement();
+            Draw();
         }
+        hand.UpdateCardPlacement();
+
     }
 
 

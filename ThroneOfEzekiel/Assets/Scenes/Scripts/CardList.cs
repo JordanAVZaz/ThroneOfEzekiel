@@ -1,29 +1,16 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class CardList : List<Card>
 {
-    Dictionary<string, int> cachedCopies = new Dictionary<string, int>();
     public CardList() : base() { }
 
     public new void Add(Card card)
     {
+        //Debug.Log($"collection size{this.Count}");
         base.Add(card);
         card.indexID = this.Count - 1;
-
-        // Update cache
-        if (cachedCopies.ContainsKey(card.Name))
-        {
-            cachedCopies[card.Name]++;
-        }
-        else
-        {
-            cachedCopies[card.Name] = 1;
-        }
     }
 
     public bool RemoveCard(Card card)
@@ -33,36 +20,49 @@ public class CardList : List<Card>
         if (id >= 0 && id < this.Count)
         {
             base.RemoveAt(id); // Removes the card based on its indexID.
-            UpdateIndices(id); // Assuming this updates indices starting from the given index.
-            DecrementCache(card);
+            UpdateIndices(id); // Update the indices of subsequent cards.
             return true;
         }
-
         return false; // Return false if the card couldn't be removed.
     }
-    //updates this deck Indices, should be used after crad removal
+
     private void UpdateIndices(int start = 0)
     {
+        //Debug.Log("refactoring ids");
         for (int i = start; i < this.Count; i++)
         {
+            //if i was 5: this.[5].indexID = 5
+            //shifting from the indexID < this way from 5 to macth the list.
             this[i].indexID = i;
+            //Debug.Log($"{this[i]} id is :{i}");
+
         }
     }
 
-    public void MigrateCardTo(Card card, List<Card> newCollection)
+    public bool MigrateCardTo(Card card, CardList newCollection)
     {
-        if(this.Count < 1){
-            return;
+        if (card == null)
+        {
+            Debug.LogError("Attempted to migrate a null card.");
+            return false;
         }
-        Card oldCard = card;
+
+        if (!this.Remove(card)) // Try to remove the card from the current list.
+        {
+            Debug.LogError($"Attempted to migrate a card not present in the list: {card.name}");
+            return false;
+        }
+
+        // Now that the card has been removed, it is safe to add it to the new list.
         newCollection.Add(card);
-        UnityEngine.Debug.Log(oldCard.name + " remove at :" + oldCard.indexID);
-        this.RemoveAt(oldCard.indexID);
-        //old list should have its cards update their indexes
-        this.UpdateIndices(oldCard.indexID);
-        this.DecrementCache(card);
+
+
+        // Debug logs to verify the operation, you can remove these once you're confident it works correctly.
+        Debug.Log($"{card.name} has been moved from the old list to the new list.");
+
+        return true; // Return true to indicate the migration was successful.
     }
-    //shuffles a collection
+
     public void Shuffle()
     {
         System.Random rng = new System.Random();
@@ -76,7 +76,7 @@ public class CardList : List<Card>
             this[k] = this[n];
             this[n] = value;
 
-            // Keepinh indexID consistent with the position, you can do the following:
+            // Keeping indexID consistent with the position
             this[k].indexID = k;
             this[n].indexID = n;
         }
@@ -84,54 +84,15 @@ public class CardList : List<Card>
 
     public int HowManyCopies(Card card)
     {
-        //check for cached coppies
-        var cachedcard = FindCachedCopy(card);
-        if (cachedcard != null)
-        {
-            return cachedcard.Value.Value;
-        }
-
-        //creates cached coppy and returns a value
-        int coppies = 0;
+        // Count and return the number of copies without using a cache
+        int copies = 0;
         foreach (Card c in this)
         {
             if (card.Name == c.Name)
             {
-                coppies++;
+                copies++;
             }
         }
-        cachedCopies.Add(card.Name, coppies);
-        return coppies;
-    }
-
-    private bool DecrementCache(Card card)
-    {
-        if (cachedCopies.TryGetValue(card.Name, out int count))
-        {
-            if (count <= 1)
-            {
-                cachedCopies.Remove(card.Name); // Remove from cache if count drops to zero
-            }
-            else
-            {
-                cachedCopies[card.Name]--;
-            }
-            return true;
-        }
-        UnityEngine.Debug.LogError($"Attempted to decrement a non-cached card: {card.Name}");
-        return false;
-    }
-
-    private KeyValuePair<string, int>? FindCachedCopy(Card card)
-    {
-        if (cachedCopies.TryGetValue(card.Name, out int count))
-        {
-            return new KeyValuePair<string, int>(card.Name, count);
-        }
-        UnityEngine.Debug.LogWarning("Card not found in cache: " + card.Name);
-        return null;
+        return copies;
     }
 }
-
-
-

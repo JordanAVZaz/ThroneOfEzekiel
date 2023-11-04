@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IMigrateCards
 {
-    public abstract void MigrateCardTo(Card card, List<Card> newCollection);
+    public abstract void MigrateCardTo(Card card, CardList newCollection);
 }
