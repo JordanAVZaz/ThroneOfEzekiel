@@ -354,6 +354,7 @@
 -analyzer:"C:/Program Files/Unity/Hub/Editor/2022.3.5f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
 "Assets/Scenes/Scripts/Ability.cs"
 "Assets/Scenes/Scripts/BaseTile.cs"
+"Assets/Scenes/Scripts/Button Scripts/Button_Library.cs"
 "Assets/Scenes/Scripts/CachedMaterials.cs"
 "Assets/Scenes/Scripts/Card.cs"
 "Assets/Scenes/Scripts/Card3D.cs"

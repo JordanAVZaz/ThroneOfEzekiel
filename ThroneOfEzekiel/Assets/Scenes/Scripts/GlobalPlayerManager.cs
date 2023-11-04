@@ -18,11 +18,11 @@ public class GlobalPlayerManager : Singleton<GlobalPlayerManager>
     }
     private T PlayerMethod<T>(T player1, T player2)
     {
-        if (GameState.Instance._player == GameState.Players.Player1)
+        if (GameState.Instance._playerTurn == GameState.Players.Player1)
         {
             return player1;
         }
-        else if (GameState.Instance._player == GameState.Players.Player2)
+        else if (GameState.Instance._playerTurn == GameState.Players.Player2)
         {
             return player2;
         }
@@ -35,9 +35,23 @@ public class GlobalPlayerManager : Singleton<GlobalPlayerManager>
     //Draw specifacly puts top deck card into hand CardList.
     //This is the first time that the 3d mesh will be visible
     //deck to hand migration must go through this channel
+
+    public void SetActiveHand()
+    {
+        if (GameState.Instance._playerTurn == GameState.Players.Player1)
+        {
+            player1.hand.SetHandSleep(false);
+            player2.hand.SetHandSleep(true);
+        }
+        else if (GameState.Instance._playerTurn == GameState.Players.Player2)
+        {
+            player1.hand.SetHandSleep(true);
+            player2.hand.SetHandSleep(false);
+        }
+    }
     public Player GetActivePlayer()
     {
-       return PlayerMethod(player1, player2);
+        return PlayerMethod(player1, player2);
     }
     public void Draw()
     {

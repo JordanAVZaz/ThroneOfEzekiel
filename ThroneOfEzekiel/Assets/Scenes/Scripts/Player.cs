@@ -51,6 +51,11 @@ public class Player
             Debug.Log("No more cards to draw.");
             return;
         }
+        if (hand.cardsInHand.Count > 9)
+        {
+            Debug.Log("Can't have more then 10 cards in hand");
+            return;
+        }
 
         Card cardToDraw = deck[0];
         cardToDraw.gameObject.SetActive(true);

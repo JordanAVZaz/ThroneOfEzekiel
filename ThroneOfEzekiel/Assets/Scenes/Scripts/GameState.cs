@@ -20,17 +20,21 @@ public class GameState : Singleton<GameState>
         Idle,
         HandCardSelected,
         BoardCardSelected,
+        EndTurn,
         GameEnd
     }
     public delegate void GameStateChangedDelegate(Global_States newState);
     public static event GameStateChangedDelegate OnGameStateChanged;
-    public Players _player { private set; get; }
+    public Players _playerTurn { private set; get; }
     private Global_States _currentState;
-    private int turn;
+    private int _turn;
+    private GlobalPlayerManager _pm;
     protected override void Awake()
     {
         base.Awake();
         _currentState = Global_States.GameStart;
+        _pm = GlobalPlayerManager.Instance;
+        _playerTurn = Players.NoPlayer;
     }
     private void Update()
     {
@@ -42,41 +46,35 @@ public class GameState : Singleton<GameState>
         switch (_currentState)
         {
             case Global_States.GameStart:
-                turn = 1;
-                _player = Players.Player1;
+                _turn = 1;
                 // Handle game start logic
                 Set_TurnTransition();
                 break;
 
             case Global_States.TurnTransition:
-                // Handle turn transition logic
-                if (_player == Players.Player2 || _player == Players.Player1 && turn == 1)
+                if (_playerTurn != Players.Player1 || _turn == 1 && _playerTurn == Players.NoPlayer) // If it's an odd turn number, it's Player1's turn
                 {
-                    _player = Players.Player1;
-                    Debug.Log($"Player 1 turn {turn}");
-                    GlobalPlayerManager.Instance.player1.hand.gameObject.SetActive(true);
-                    GlobalPlayerManager.Instance.player2.hand.gameObject.SetActive(false);
+                    _playerTurn = Players.Player1;
+                    Debug.Log($"Player 1 turn {_turn}");
                 }
-                else if (_player == Players.Player1 && turn > 1)
+                else if (_playerTurn != Players.Player2)// If it's an even turn number, it's Player2's turn
                 {
-                    _player = Players.Player2;
-                    Debug.Log($"Player 1 turn {turn}");
-                    GlobalPlayerManager.Instance.player1.hand.gameObject.SetActive(false);
-                    GlobalPlayerManager.Instance.player2.hand.gameObject.SetActive(true);
-                    turn++;
+                    _playerTurn = Players.Player2;
+                    Debug.Log($"Player 2 turn {_turn}");
                 }
+                _pm.SetActiveHand();
                 Set_Draw();
                 break;
 
             case Global_States.Draw:
                 // Handle draw logic
-                if (turn == 1)
+                if (_turn == 1)
                 {
-                    GlobalPlayerManager.Instance.GetActivePlayer().Draw(5);
+                    _pm.GetActivePlayer().Draw(5);
                 }
                 else
                 {
-                    GlobalPlayerManager.Instance.Draw();
+                    _pm.Draw();
                 }
                 Set_Idle();
                 break;
@@ -91,6 +89,14 @@ public class GameState : Singleton<GameState>
 
             case Global_States.BoardCardSelected:
                 // Handle when a card from the field is selected
+                break;
+
+            case Global_States.EndTurn:
+                if (_playerTurn == Players.Player2)
+                {
+                    _turn++;
+                }
+                Set_TurnTransition();
                 break;
 
             case Global_States.GameEnd:
@@ -152,6 +158,13 @@ public class GameState : Singleton<GameState>
         State = Global_States.BoardCardSelected;
         Console.WriteLine("FieldCardSelected");
         Debug.Log("FieldCardSelected");
+    }
+
+    public void Set_EndTurn()
+    {
+        State = Global_States.EndTurn;
+        Console.WriteLine("EndTurn");
+        Debug.Log("EndTurn");
     }
 
     public void Set_GameEnd()

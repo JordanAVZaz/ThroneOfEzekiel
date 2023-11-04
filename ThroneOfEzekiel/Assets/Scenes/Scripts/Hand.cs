@@ -15,21 +15,42 @@ public class Hand : MonoBehaviour
     [Range(-10, 20)]
     public float maxSpace = 14.3f;
     private int startHandSize = 5;
-    public CardList cardsInHand{get;private set;}
+    public CardList cardsInHand { get; private set; }
     public Card Selected;
     private Vector3 handAnchor;
-   
+
     void Awake()
     {
         cardsInHand = new CardList();
         handAnchor = CreateHandAnchor();
         handSize = startHandSize;
         maxSpace = 14.3f;
+        SetHandSleep(true);
     }
 
     void Update()
     {
         UpdateCardPlacement();
+    }
+
+    public void SetHandSleep(bool x)
+    {
+        if (x)
+        {
+            this.gameObject.SetActive(false);
+            foreach (Card card in cardsInHand)
+            {
+                card.card3D.cardObject.SetActive(false);
+            }
+        }
+        else
+        {
+            this.gameObject.SetActive(true);
+            foreach (Card card in cardsInHand)
+            {
+                card.card3D.cardObject.SetActive(true);
+            }
+        }
     }
     public void UpdateCardPlacement()
     {
