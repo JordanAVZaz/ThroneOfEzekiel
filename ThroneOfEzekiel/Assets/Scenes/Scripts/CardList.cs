@@ -46,6 +46,24 @@ public class CardList : List<Card>
             Debug.LogError("Attempted to migrate a null card.");
             return false;
         }
+        
+        if (!this.Remove(card)) // Try to remove the card from the current list.
+        {
+            Debug.LogError($"Attempted to migrate a card not present in the list: {card.name}");
+            return false;
+        }
+
+        newCollection.Add(card);
+        Debug.Log($"{card.name} has been moved from the old list to the new list.");
+        return true; 
+    }
+    public bool MigrateCardToTop(Card card, CardList newCollection)
+    {
+        if (card == null)
+        {
+            Debug.LogError("Attempted to migrate a null card.");
+            return false;
+        }
 
         if (!this.Remove(card)) // Try to remove the card from the current list.
         {
@@ -53,14 +71,9 @@ public class CardList : List<Card>
             return false;
         }
 
-        // Now that the card has been removed, it is safe to add it to the new list.
-        newCollection.Add(card);
-
-
-        // Debug logs to verify the operation, you can remove these once you're confident it works correctly.
-        Debug.Log($"{card.name} has been moved from the old list to the new list.");
-
-        return true; // Return true to indicate the migration was successful.
+        newCollection.Insert(0,card);
+        Debug.Log($"{card.name} has been moved from the old list to the Front of new list.");
+        return true; 
     }
 
     public void Shuffle()

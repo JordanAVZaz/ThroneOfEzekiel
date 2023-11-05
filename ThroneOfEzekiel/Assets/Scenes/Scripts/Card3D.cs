@@ -11,7 +11,6 @@ public class Card3D
     private Vector3 _scale;//used scale
     private Renderer _cardRenderer;
     private Transform _transform;
-
     private Color _defaultOutlineColor = new Color(48 / 255.0f, 7 / 255.0f, 51 / 255.0f, 255 / 255.0f);
     private Color _selectionOutlineColor = new Color(168 / 255.0f, 28 / 255.0f, 178 / 255.0f, 255 / 255.0f);
 

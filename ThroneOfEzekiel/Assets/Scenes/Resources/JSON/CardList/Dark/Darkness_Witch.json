@@ -1,0 +1,27 @@
+{
+    "name": "Darkness_Witch",
+    "imgPath": "Images/Cards/Dark/Darkness_Witch",
+    "alignment": "Dark",
+    "unitClass": "Magic",
+    "movementCost": 2,
+    "unitModifiers": [],
+    "family": [
+        "Witch"
+    ],
+    "rank": 1,
+    "health": 2,
+    "power": 3,
+    "abilities": [
+        {
+            "type": "OnArrival",
+            "effect": {
+                "action": "Summon",
+                "value": {"summon":"Solumn_Cleric"}
+            },
+            "target": "Empty",
+            "condition": "None",
+            "constraints": "King",
+            "text": "On Arrival: Summon a Solumn Cleric"
+        }
+    ]
+}

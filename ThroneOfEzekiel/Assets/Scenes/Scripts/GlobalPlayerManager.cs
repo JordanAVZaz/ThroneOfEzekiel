@@ -14,7 +14,7 @@ public class GlobalPlayerManager : Singleton<GlobalPlayerManager>
     {
         base.Awake();
         player1 = new Player(GameState.Players.Player1, "JSON/Decks/Radiant_Starter");
-        player2 = new Player(GameState.Players.Player2, "JSON/Decks/Radiant_Starter");
+        player2 = new Player(GameState.Players.Player2, "JSON/Decks/Dark_Starter");
     }
     private T PlayerMethod<T>(T player1, T player2)
     {

@@ -36,6 +36,7 @@ public class Card : MonoBehaviour
                 //board layer
                 case (7):
                     GameState.Instance.Set_BoardCardSelected();
+                    VisualiseAttackPattern();
                     card3D.VisualizeSelection();
                     break;
                 default:
@@ -50,4 +51,18 @@ public class Card : MonoBehaviour
             card3D.VisualizeDefault();
         }
     }
+
+    private void VisualiseAttackPattern()
+    {
+        if (this is UnitCard unitcard)
+        {
+            BoardVisualiser.Instance.AttackPattern(unitcard.unitClass, GameBoard.Instance.FindTileOfSelectable(this));
+        }
+        else
+        {
+            Debug.LogError("Can't show non unit attack pattern");
+        }
+    }
+
+
 }

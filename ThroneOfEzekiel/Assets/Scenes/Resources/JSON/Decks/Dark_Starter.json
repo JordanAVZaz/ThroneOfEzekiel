@@ -1,0 +1,12 @@
+{
+    "deckName": "Dark Starter",
+    "cards": [
+        {"name": "Chaos_Witch", "type": "unit", "copies": 3, "link": "JSON/CardList/Dark/Chaos_Witch"},
+        {"name": "Darkness_Witch", "type": "unit", "copies": 3, "link": "JSON/CardList/Dark/Darkness_Witch"},
+        {"name": "Echoing_Wailer", "type": "unit", "copies": 3, "link": "JSON/CardList/Dark/Echoing_Wailer"},
+        {"name": "Shadow_Fiend", "type": "unit", "copies": 3, "link": "JSON/CardList/Dark/Shadow_Fiend"},
+        {"name": "Spirit_Witch", "type": "unit", "copies": 3, "link": "JSON/CardList/Dark/Spirit_Witch"},
+        {"name": "Viciouse_Chaser", "type": "unit", "copies": 3, "link": "JSON/CardList/Dark/Viciouse_Chaser"},
+        {"name": "Spiteful_Hag", "type": "unit", "copies": 3, "link": "JSON/CardList/Dark/Spiteful_Hag"}
+    ]
+}

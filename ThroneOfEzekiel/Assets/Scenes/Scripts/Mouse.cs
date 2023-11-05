@@ -11,6 +11,7 @@ public class Mouse : Singleton<Mouse>
     private Camera _mainCamera;
     private GameObject _previousObject;
     public Card selectedCard { get; private set; }
+    private RulesToggle _rulesToggle;
 
     protected override void Awake()
     {
@@ -23,6 +24,10 @@ public class Mouse : Singleton<Mouse>
         if (_mainCamera != null)
         {
             HandleMouseEvent();
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                RulesToggle.Instance.ToggleRulesVisibility();
+            }
         }
         else
         {
@@ -41,7 +46,7 @@ public class Mouse : Singleton<Mouse>
             switch (GameState.Instance.State)
             {
                 case GameState.Global_States.Idle:
-                    if ((1 << hitObject.layer) == _handLayer)
+                    if (hitCard is Card)
                     {
                         HandleCardInteraction(hitCard);
                     }
@@ -62,9 +67,20 @@ public class Mouse : Singleton<Mouse>
                             DeselectCard();
                         }
                     }
-                    else
+                    break;
+
+                case GameState.Global_States.BoardCardSelected:
+                    if ((1 << hitObject.layer) == _tileLayer)
                     {
-                        //ResetPreviousObject();
+                        //HandleBoardInteraction(hitObject);
+
+                        if (Input.GetMouseButtonDown(0) && OnMouseClick != null)
+                        {
+                            Debug.Log($"{selectedCard.Name} is selected");
+                            OnMouseClick.Invoke(hitObject);
+                            DeselectCard();
+                            BoardVisualiser.Instance.ResetBoard();
+                        }
                     }
                     break;
 
@@ -75,6 +91,7 @@ public class Mouse : Singleton<Mouse>
             if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Space))
             {
                 DeselectCard();
+                BoardVisualiser.Instance.ResetBoard();
             }
         }
     }
@@ -97,7 +114,6 @@ public class Mouse : Singleton<Mouse>
         {
             if (selectedCard != null)
             {
-                //DeselectCard();
                 ResetPreviousObject();
             }
             selectedCard = hitCard;
@@ -107,11 +123,12 @@ public class Mouse : Singleton<Mouse>
 
     private void HandleBoardInteraction(GameObject hitObject)
     {
-        if (_previousObject != hitObject)
+        var basetile = hitObject.GetComponent<BaseTile>();
+        if (_previousObject != hitObject && basetile != null)
         {
             ResetPreviousObject();
             _previousObject = hitObject;
-            hitObject.GetComponent<BaseTile>().Fill_Selectable_Color();
+            basetile.tile3D.FillSelectableColor();
         }
     }
 
@@ -136,7 +153,7 @@ public class Mouse : Singleton<Mouse>
             var baseTile = _previousObject.GetComponent<BaseTile>();
             if (baseTile != null)
             {
-                baseTile.Fill_Default_Color();
+                baseTile.tile3D.FillDefaultColor();
             }
         }
     }

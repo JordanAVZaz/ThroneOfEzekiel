@@ -1,6 +1,6 @@
 {
     "name": "Solumn_Cleric",
-    "imgPath": "Images/Cards/Radiant/Solumn-Cleric",
+    "imgPath": "Images/Cards/Radiant/Solumn_Cleric",
     "alignment": "Radiant",
     "unitClass": "Sword",
     "movementCost": 1,

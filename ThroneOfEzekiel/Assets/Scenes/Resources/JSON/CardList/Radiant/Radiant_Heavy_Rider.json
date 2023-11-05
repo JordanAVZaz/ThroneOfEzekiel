@@ -1,0 +1,27 @@
+{
+    "name": "Radiant_Heavy_Rider",
+    "imgPath": "Images/Cards/Radiant/Radiant_Heavy_Rider",
+    "alignment": "Radiant",
+    "unitClass": "lance",
+    "movementCost": 2,
+    "unitModifiers": [],
+    "family": [
+        "Knight"
+    ],
+    "rank": 1,
+    "health": 3,
+    "power": 3,
+    "abilities": [
+        {
+            "type": "OnArrival",
+            "effect": {
+                "action": "Summon",
+                "value": {"summon":"Solumn_Cleric"}
+            },
+            "target": "Empty",
+            "condition": "None",
+            "constraints": "King",
+            "text": "On Arrival: Summon a Solumn Cleric"
+        }
+    ]
+}
