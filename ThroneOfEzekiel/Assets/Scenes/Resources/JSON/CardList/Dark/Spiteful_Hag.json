@@ -1,0 +1,27 @@
+{
+    "name": "Spiteful_Hag",
+    "imgPath": "Images/Cards/Dark/Spiteful_Hag",
+    "alignment": "Dark",
+    "unitClass": "Magic",
+    "movementCost": 2,
+    "unitModifiers": [],
+    "family": [
+        "Witch"
+    ],
+    "rank": 1,
+    "health": 1,
+    "power": 1,
+    "abilities": [
+        {
+            "type": "OnArrival",
+            "effect": {
+                "action": "Summon",
+                "value": {"summon":"Solumn_Cleric"}
+            },
+            "target": "Empty",
+            "condition": "None",
+            "constraints": "King",
+            "text": "On Arrival: Summon a Solumn Cleric"
+        }
+    ]
+}

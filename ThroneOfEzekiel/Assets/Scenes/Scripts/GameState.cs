@@ -6,6 +6,12 @@ using UnityEngine;
 //state pattern
 public class GameState : Singleton<GameState>
 {
+    public enum Players
+    {
+        Player1,
+        Player2,
+        NoPlayer
+    }
     public enum Global_States
     {
         GameStart,
@@ -13,13 +19,23 @@ public class GameState : Singleton<GameState>
         Draw,
         Idle,
         HandCardSelected,
-        FieldCardSelected,
+        BoardCardSelected,
+        EndTurn,
         GameEnd
     }
     public delegate void GameStateChangedDelegate(Global_States newState);
     public static event GameStateChangedDelegate OnGameStateChanged;
-    private Global_States currentState;
-
+    public Players _playerTurn { private set; get; }
+    private Global_States _currentState;
+    private int _turn;
+    private GlobalPlayerManager _pm;
+    protected override void Awake()
+    {
+        base.Awake();
+        _currentState = Global_States.GameStart;
+        _pm = GlobalPlayerManager.Instance;
+        _playerTurn = Players.NoPlayer;
+    }
     private void Update()
     {
         HandleCurrentState();
@@ -27,20 +43,39 @@ public class GameState : Singleton<GameState>
 
     private void HandleCurrentState()
     {
-        switch (currentState)
+        switch (_currentState)
         {
             case Global_States.GameStart:
+                _turn = 1;
                 // Handle game start logic
                 Set_TurnTransition();
                 break;
 
             case Global_States.TurnTransition:
-                // Handle turn transition logic
+                if (_playerTurn != Players.Player1 || _turn == 1 && _playerTurn == Players.NoPlayer) // If it's an odd turn number, it's Player1's turn
+                {
+                    _playerTurn = Players.Player1;
+                    Debug.Log($"Player 1 turn {_turn}");
+                }
+                else if (_playerTurn != Players.Player2)// If it's an even turn number, it's Player2's turn
+                {
+                    _playerTurn = Players.Player2;
+                    Debug.Log($"Player 2 turn {_turn}");
+                }
+                _pm.SetActiveHand();
                 Set_Draw();
                 break;
 
             case Global_States.Draw:
                 // Handle draw logic
+                if (_turn == 1)
+                {
+                    _pm.GetActivePlayer().Draw(5);
+                }
+                else
+                {
+                    _pm.Draw();
+                }
                 Set_Idle();
                 break;
 
@@ -49,11 +84,19 @@ public class GameState : Singleton<GameState>
                 break;
 
             case Global_States.HandCardSelected:
-                // Handle when a card from the hand is selected
+                //Tile handles it own click via sub
                 break;
 
-            case Global_States.FieldCardSelected:
+            case Global_States.BoardCardSelected:
                 // Handle when a card from the field is selected
+                break;
+
+            case Global_States.EndTurn:
+                if (_playerTurn == Players.Player2)
+                {
+                    _turn++;
+                }
+                Set_TurnTransition();
                 break;
 
             case Global_States.GameEnd:
@@ -61,17 +104,17 @@ public class GameState : Singleton<GameState>
                 break;
 
             default:
-                Debug.LogError("Unknown game state: " + currentState);
+                Debug.LogError("Unknown game state: " + _currentState);
                 break;
         }
     }
-      public Global_States State
+    public Global_States State
     {
-        get { return currentState; }
+        get { return _currentState; }
         set
         {
-            currentState = value;
-            OnGameStateChanged?.Invoke(currentState);
+            _currentState = value;
+            OnGameStateChanged?.Invoke(_currentState);
         }
     }
 
@@ -110,11 +153,18 @@ public class GameState : Singleton<GameState>
         Debug.Log("HandCardSelected");
     }
 
-    public void Set_FieldCardSelected()
+    public void Set_BoardCardSelected()
     {
-        State = Global_States.FieldCardSelected;
+        State = Global_States.BoardCardSelected;
         Console.WriteLine("FieldCardSelected");
         Debug.Log("FieldCardSelected");
+    }
+
+    public void Set_EndTurn()
+    {
+        State = Global_States.EndTurn;
+        Console.WriteLine("EndTurn");
+        Debug.Log("EndTurn");
     }
 
     public void Set_GameEnd()
@@ -123,6 +173,4 @@ public class GameState : Singleton<GameState>
         Console.WriteLine("GameEnd");
         Debug.Log("GameEnd");
     }
-  
-
 }

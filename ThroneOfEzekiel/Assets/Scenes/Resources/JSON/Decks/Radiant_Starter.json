@@ -1,8 +1,12 @@
 {
     "deckName": "Radiant Starter",
     "cards": [
-        {"name": "Radiant_Paladin","type":"unit","copies": 3,"link":"JSON/CardList/Radiant/Bright_Paladin"},
-        {"name": "The_Imperial_Ranks", "type":"unit","copies": 3,"link":"JSON/CardList/Radiant/The_Imperial_Ranks"},
-        {"name": "Solumn_Cleric","type":"unit", "copies": 3,"link":"JSON/CardList/Radiant/Solumn_Cleric"}
+        {"name": "Radiant_Paladin", "type": "unit", "copies": 3, "link": "JSON/CardList/Radiant/Bright_Paladin"},
+        {"name": "The_Imperial_Ranks", "type": "unit", "copies": 3, "link": "JSON/CardList/Radiant/The_Imperial_Ranks"},
+        {"name": "Solumn_Cleric", "type": "unit", "copies": 3, "link": "JSON/CardList/Radiant/Solumn_Cleric"},
+        {"name": "Dawn_Rider", "type": "unit", "copies": 3, "link": "JSON/CardList/Radiant/Dawn_Rider"},
+        {"name": "Radiant_Heavy_Lancer", "type": "unit", "copies": 3, "link": "JSON/CardList/Radiant/Radiant_Heavy_Lancer"},
+        {"name": "Radiant_Heavy_Rider", "type": "unit", "copies": 3, "link": "JSON/CardList/Radiant/Radiant_Heavy_Rider"},
+        {"name": "Seraph_of_the_Sword", "type": "unit", "copies": 3, "link": "JSON/CardList/Radiant/Seraph_of_the_Sword"}
     ]
 }

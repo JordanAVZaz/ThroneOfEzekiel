@@ -8,66 +8,61 @@ using UnityEngine.UI;
 
 public class Card : MonoBehaviour
 {
-    public int indexID { get; private set; } = -1;
-    public float scaleFactor = 1.5f;
-    private bool isSelected = false;
-    private Vector3 originalScale;
-    private Renderer cardRenderer;
-    private Color defaultOutlineColor = new Color(48 / 255.0f, 7 / 255.0f, 51 / 255.0f, 255 / 255.0f);
-    private Color selectionOutlineColor = new Color(168 / 255.0f, 28 / 255.0f, 178 / 255.0f, 255 / 255.0f);
-    //private string imgPath;
+    public Card3D card3D;
+    public int indexID = 0;
+    public string Name { get; protected set; }
 
-    protected virtual void Start()
+    public virtual void Initialize(string link, int index)
     {
-        originalScale = transform.localScale;
-        cardRenderer = GetComponent<Renderer>();
+        indexID = index;
+        card3D = new Card3D(gameObject);
+    }
 
-        if (cardRenderer != null)
-        {
-            cardRenderer.material.SetColor("_OutlineColor", defaultOutlineColor);
-        }
-        else
-        {
-            Debug.LogError("Renderer not found on " + gameObject.name);
-        }
-    }
-    public virtual void Initialize(int index){
-        index = indexID;
-    }
     public void Selection(bool cardSelected)
     {
-        IsSelected = cardSelected;
-        if (cardSelected)
+        if (card3D != null && cardSelected)
         {
-            GameState.Instance.Set_HandCardSelected();
-            Scale_Card();
-            cardRenderer.material.SetColor("_OutlineColor", selectionOutlineColor);
+            switch (card3D.cardObject.layer)
+            {
+                //deck layer
+                case (1):
+                    UnityEngine.Debug.LogError("Illegal to select deck card");
+                    break;
+                //hand layer
+                case (6):
+                    GameState.Instance.Set_HandCardSelected();
+                    card3D.VisualizeSelection();
+                    break;
+                //board layer
+                case (7):
+                    GameState.Instance.Set_BoardCardSelected();
+                    VisualiseAttackPattern();
+                    card3D.VisualizeSelection();
+                    break;
+                default:
+                    UnityEngine.Debug.LogError("Card is outside layer scope");
+                    UnityEngine.Debug.LogError("layer:" + card3D.cardObject.layer);
+                    break;
+            }
         }
         else
         {
             GameState.Instance.Set_Idle();
-            Scale_Card_Reset();
-            cardRenderer.material.SetColor("_OutlineColor", defaultOutlineColor);
+            card3D.VisualizeDefault();
         }
     }
 
-    public void Scale_Card()
+    private void VisualiseAttackPattern()
     {
-        transform.localScale = originalScale * scaleFactor;
+        if (this is UnitCard unitcard)
+        {
+            BoardVisualiser.Instance.AttackPattern(unitcard.unitClass, GameBoard.Instance.FindTileOfSelectable(this));
+        }
+        else
+        {
+            Debug.LogError("Can't show non unit attack pattern");
+        }
     }
 
-    public void Scale_Card_Reset()
-    {
-        transform.localScale = originalScale;
-    }
-    public void SetIndex(int index)
-    {
-        indexID = index;
-    }
 
-    private bool IsSelected
-    {
-        get { return isSelected; }
-        set { isSelected = value; }
-    }
 }

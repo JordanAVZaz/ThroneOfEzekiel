@@ -3,13 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameBoard : MonoBehaviour
+public class GameBoard : Singleton<GameBoard>
 {
     public GameObject baseTilePrefab; // Drag your BaseTile prefab here in the Unity Editor.
-    private static BaseTile[,] _gameBoard; // Use a 2D array
+    public BaseTile[,] _gameBoard { get; private set; } // Use a 2D array
+    public List<BaseTile> _gameBoardLookUp;
 
-    private List<Card> _deck;
-
+    
     void Start()
     {
         int size = 5; // Size of the board (5x5 for a total of 25 tiles)
@@ -25,6 +25,7 @@ public class GameBoard : MonoBehaviour
 
                 // Initialize the tile's location and ID
                 tile.Init(row, col);
+                _gameBoardLookUp.Add(tile);
 
                 if (row < 2)
                 {
@@ -39,8 +40,6 @@ public class GameBoard : MonoBehaviour
 
                 // Store the tile in our game board array.
                 _gameBoard[row, col] = tile;
-
-
             }
         }
     }
@@ -50,8 +49,40 @@ public class GameBoard : MonoBehaviour
         return tile;
     }
 
-    void Update()
+    public BaseTile GetTile(int x, int y)
+    {
+        BaseTile tile = _gameBoard[x, y];
+        return tile;
+    }
+
+    public BaseTile FindTileOfSelectable(Card card)
     {
 
+        foreach (BaseTile tile in _gameBoardLookUp)
+        {
+            if (tile.GetOccupyingCard == card)
+            {
+                return tile;
+            }
+        }
+            Debug.LogError("Selectable card does not exist on the board");
+            return null;
+        
+    }
+
+    public BaseTile FindTileOfAll(Card card)
+    {
+        foreach (BaseTile tile in _gameBoardLookUp)
+        {
+            foreach (Card c in tile.deck)
+            {
+                if (c == card)
+                {
+                    return tile;
+                }
+            }
+        }
+        Debug.LogError("The card does not exist anywhere on the board");
+        return null;
     }
 }

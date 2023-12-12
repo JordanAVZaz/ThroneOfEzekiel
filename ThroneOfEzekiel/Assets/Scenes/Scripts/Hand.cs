@@ -4,82 +4,62 @@ using UnityEngine;
 
 public class Hand : MonoBehaviour
 {
-    public GameObject cardPrefab;
-    public Deck deck; // Reference to the Deck object to draw cards from
-    [Range(0,200)]
+    [Range(0, 200)]
     public float handWidth = 90;
-    [Range(-100,100)]
+    [Range(-100, 100)]
     public float handY = 0;
-    [Range(-100,100)]
+    [Range(-100, 100)]
     public float handZ = 0;
-    [Range(0,10)]
+    [Range(0, 10)]
     public int handSize;
-    [Range(-10,20)]
+    [Range(-10, 20)]
     public float maxSpace = 14.3f;
-    private int previousHandSize;
     private int startHandSize = 5;
-    private List<GameObject> hand = new List<GameObject>();
+    public CardList cardsInHand { get; private set; }
+    public Card Selected;
     private Vector3 handAnchor;
 
-    void Start()
+    void Awake()
     {
-        deck = new Deck("JSON/Decks/Radiant_Starter"); // Initialize the deck with the path to your JSON file
-        //deck.ProcessCards(); // Process cards to populate the instantiatedCards list in the deck
+        cardsInHand = new CardList();
         handAnchor = CreateHandAnchor();
-        DrawStartingHand(startHandSize);
-        previousHandSize = startHandSize;
         handSize = startHandSize;
         maxSpace = 14.3f;
+        SetHandSleep(true);
     }
 
     void Update()
     {
-        if(handSize > previousHandSize)
-        {
-            for(int i = 0; i < handSize - previousHandSize; i++)
-            {
-                DrawCard();
-            }
-        }
-        previousHandSize = handSize; // Update previous hand size for the next frame
         UpdateCardPlacement();
     }
 
-    private void DrawStartingHand(int size)
+    public void SetHandSleep(bool x)
     {
-    
-        for (int i = 0; i < size; i++)
+        if (x)
         {
-            DrawCard();
-        }
-    }
-
-    public void DrawCard()
-    {
-        GameObject drawnCard = deck.Draw(); // Draw a card from the deck
-
-        if (drawnCard != null)
-        {
-            //GameObject cardObject = Instantiate(cardPrefab);
-            // Assuming UnitCard has a method like SetProperties to set its properties based on the drawnCard
-            //cardObject.GetComponent<UnitCard>().SetProperties(drawnCard); 
-            hand.Add(drawnCard);
-            UpdateCardPlacement();
+            this.gameObject.SetActive(false);
+            foreach (Card card in cardsInHand)
+            {
+                card.card3D.cardObject.SetActive(false);
+            }
         }
         else
         {
-            Debug.LogError("No more cards in the deck.");
+            this.gameObject.SetActive(true);
+            foreach (Card card in cardsInHand)
+            {
+                card.card3D.cardObject.SetActive(true);
+            }
         }
     }
-
-    void UpdateCardPlacement()
+    public void UpdateCardPlacement()
     {
-        float cardSpacing = Mathf.Min(handWidth / (hand.Count - 1), maxSpace);
+        float cardSpacing = Mathf.Min(handWidth / (cardsInHand.Count - 1), maxSpace);
 
-        for (int i = 0; i < hand.Count; i++)
+        for (int i = 0; i < cardsInHand.Count; i++)
         {
-            float x = handAnchor.x + cardSpacing * (i - ((float)hand.Count - 1) / 2);
-            hand[i].transform.position = new Vector3(x, handY, handZ);
+            float x = handAnchor.x + cardSpacing * (i - ((float)cardsInHand.Count - 1) / 2);
+            cardsInHand[i].transform.position = new Vector3(x, handY, handZ);
         }
     }
 

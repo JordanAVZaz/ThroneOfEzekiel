@@ -1,54 +1,54 @@
 using System;
 using UnityEngine;
 
-public class Mouse : MonoBehaviour
+public class Mouse : Singleton<Mouse>
 {
-    // Delegate and event for mouse click
     public delegate void MouseClickHandler(GameObject clickedObject);
     public event MouseClickHandler OnMouseClick;
-    private int handLayer = 1 << 6;
-    private int tileLayer = 1 << 7;
-    private Camera mainCamera;
-    private GameObject previousObject;
-    private GameObject selectedObject;
 
-      void Awake()
-    {
-        mainCamera = Camera.main;
-        if (mainCamera == null)
-        {
-            Debug.LogError("Main camera not found");
-        }
-    }
+    private int _handLayer = 1 << 6;
+    private int _tileLayer = 1 << 7;
+    private Camera _mainCamera;
+    private GameObject _previousObject;
+    public Card selectedCard { get; private set; }
+    private RulesToggle _rulesToggle;
 
-    void Start()
+    protected override void Awake()
     {
-        if (mainCamera == null)
-        {
-            Debug.LogError("Main camera is null. Please ensure a camera is tagged as \"MainCamera\" in the scene.");
-            return;
-        }
+        base.Awake();
+        _mainCamera = Camera.main;
     }
 
     void Update()
     {
-        if (mainCamera != null)
+        if (_mainCamera != null)
         {
             HandleMouseEvent();
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                RulesToggle.Instance.ToggleRulesVisibility();
+            }
+        }
+        else
+        {
+            UnityEngine.Debug.LogError("Main Camera Null");
         }
     }
 
     private void HandleMouseEvent()
     {
-        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+        Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
+            var hitObject = hit.collider.gameObject;
+            var hitCard = hitObject.GetComponent<Card>();
+
             switch (GameState.Instance.State)
             {
                 case GameState.Global_States.Idle:
-                    if ((1 << hit.collider.gameObject.layer) == handLayer)
+                    if (hitCard is Card)
                     {
-                        HandleHandInteraction(hit);
+                        HandleCardInteraction(hitCard);
                     }
                     else
                     {
@@ -57,100 +57,119 @@ public class Mouse : MonoBehaviour
                     break;
 
                 case GameState.Global_States.HandCardSelected:
-                    if ((1 << hit.collider.gameObject.layer) == tileLayer)
+                    if ((1 << hitObject.layer) == _tileLayer)
                     {
-                        HandleBoardInteraction(hit);
-                    }
-                    else
-                    {
-                        ResetPreviousObject();
-                    }
+                        HandleBoardInteraction(hitObject);
 
-                    if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Space))
-                    {
-                        DeselectObject();
+                        if (Input.GetMouseButtonDown(0) && OnMouseClick != null)
+                        {
+                            OnMouseClick.Invoke(hitObject);
+                            DeselectCard();
+                        }
                     }
                     break;
 
-                // Add more cases as necessary
+                case GameState.Global_States.BoardCardSelected:
+                    if ((1 << hitObject.layer) == _tileLayer)
+                    {
+                        //HandleBoardInteraction(hitObject);
+
+                        if (Input.GetMouseButtonDown(0) && OnMouseClick != null)
+                        {
+                            Debug.Log($"{selectedCard.Name} is selected");
+                            OnMouseClick.Invoke(hitObject);
+                            DeselectCard();
+                            BoardVisualiser.Instance.ResetBoard();
+                        }
+                    }
+                    break;
 
                 default:
                     Debug.Log("Unhandled game state");
                     break;
             }
-
-            // Trigger the mouse click event if any object is clicked
-            if (Input.GetMouseButtonDown(0) && OnMouseClick != null)
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Space))
             {
-                OnMouseClick.Invoke(hit.collider.gameObject);
+                DeselectCard();
+                BoardVisualiser.Instance.ResetBoard();
             }
         }
     }
-
-    private void HandleHandInteraction(RaycastHit hit)
+    private void HandleCardInteraction(Card hitCard)
     {
-        GameObject hitObject = hit.collider.gameObject;
-        if (previousObject != hitObject && hitObject != selectedObject)
+        if (hitCard == null)
+        {
+            UnityEngine.Debug.LogError("No card component loaded on raycasted card");
+            return;
+        }
+
+        if (_previousObject != hitCard.gameObject && selectedCard != hitCard)
         {
             ResetPreviousObject();
-            previousObject = hitObject;
-            // Assume Scale_Card() is a method in your Card component or similar
-            hitObject.GetComponent<Card>().Scale_Card();
+            _previousObject = hitCard.gameObject;
+            hitCard.card3D.VisualizeHover();
         }
 
         if (Input.GetMouseButtonDown(0))
         {
-            if (selectedObject != null)
+            if (selectedCard != null)
             {
-                DeselectObject();
+                ResetPreviousObject();
             }
-
-            selectedObject = hitObject;
-            hitObject.GetComponent<Card>().Selection(true);
+            selectedCard = hitCard;
+            hitCard.Selection(true);
         }
     }
 
-    private void HandleBoardInteraction(RaycastHit hit)
+    private void HandleBoardInteraction(GameObject hitObject)
     {
-        GameObject hitObject = hit.collider.gameObject;
-        if (previousObject != hitObject)
+        var basetile = hitObject.GetComponent<BaseTile>();
+        if (_previousObject != hitObject && basetile != null)
         {
             ResetPreviousObject();
-            previousObject = hitObject;
-            hitObject.GetComponent<BaseTile>().Fill_Selectable_Color();
+            _previousObject = hitObject;
+            basetile.tile3D.FillSelectableColor();
         }
     }
 
     private void ResetPreviousObject()
     {
-        if (previousObject != null)
-        {
-            var card = previousObject.GetComponent<Card>();
-            if (card != null)
-            {
-                card.Scale_Card_Reset();
-            }
+        if (_previousObject == null) return;
 
-            var baseTile = previousObject.GetComponent<BaseTile>();
+        var card = _previousObject.GetComponent<Card>();
+        if (card != null)
+        {
+            if (card == selectedCard)
+            {
+                card.card3D.ScaleReset();//should keep border until out of the gamestate
+            }
+            else
+            {
+                card.card3D.VisualizeDefault();
+            }
+        }
+        else
+        {
+            var baseTile = _previousObject.GetComponent<BaseTile>();
             if (baseTile != null)
             {
-                baseTile.Fill_Default_Color();
+                baseTile.tile3D.FillDefaultColor();
             }
         }
     }
 
-    private void DeselectObject()
+    private void DeselectCard()
     {
-        if (selectedObject != null)
+        if (selectedCard != null)
         {
-            selectedObject.GetComponent<Card>().Selection(false);
-            selectedObject.GetComponent<Card>().Scale_Card_Reset();
-            selectedObject = null;
+            selectedCard.Selection(false);
+            selectedCard = null;
         }
     }
-    public GameObject SelectedObject
+
+    public Card SelectedCard
     {
-        get => selectedObject;
-        set => selectedObject = value;
+        get => selectedCard;
+        set => selectedCard = value;
     }
 }

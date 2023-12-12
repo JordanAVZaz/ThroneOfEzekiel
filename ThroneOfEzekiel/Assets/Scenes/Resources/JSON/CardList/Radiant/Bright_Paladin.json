@@ -1,8 +1,8 @@
 {
-    "name": "Bright_Paladin",
-    "imgPath": "Images/Cards/Radiant/Bright-Paladin",
+    "name": "Radiant_Paladin",
+    "imgPath": "Images/Cards/Radiant/Radiant_Paladin",
     "alignment": "Radiant",
-    "unitClass": "Club",
+    "unitClass": "sword",
     "movementCost": 2,
     "unitModifiers": [],
     "family": [

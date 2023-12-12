@@ -1,8 +1,8 @@
 {
     "name": "The_Imperial_Ranks",
-    "imgPath": "Images/Cards/Radiant/The-Imperial-Ranks",
+    "imgPath": "Images/Cards/Radiant/The_Imperial_Ranks",
     "alignment": "Radiant",
-    "unitClass": "Club",
+    "unitClass": "sword",
     "movementCost": 2,
     "unitModifiers": [],
     "family": [
