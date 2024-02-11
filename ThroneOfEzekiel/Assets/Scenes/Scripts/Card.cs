@@ -6,11 +6,12 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Card : MonoBehaviour
+public class Card : InteractiveObject
 {
     public Card3D card3D;
     public int indexID = 0;
     public string Name { get; protected set; }
+    public Player Owner {get;set;}
 
     public virtual void Initialize(string link, int index)
     {

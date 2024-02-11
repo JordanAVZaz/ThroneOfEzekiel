@@ -1,18 +1,22 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Mouse : Singleton<Mouse>
 {
     public delegate void MouseClickHandler(GameObject clickedObject);
     public event MouseClickHandler OnMouseClick;
-
     private int _handLayer = 1 << 6;
     private int _tileLayer = 1 << 7;
     private Camera _mainCamera;
-    private GameObject _previousObject;
-    public Card selectedCard { get; private set; }
+    private InteractiveObject _focusedObject; //Tracks the last object the mouse interacted with: Hover or Click. 
+    private InteractiveObject _selectedObject;//private T _selectedObject; //Stores the selected object
+    private List<GameObject> _selected; // Can stores multiple selected objects
     private RulesToggle _rulesToggle;
-
+   
+    // go through _selectedObject to set
+    public Card SelectedCard => AuxileryLogic.IsIt<Card>(_selectedObject) ? _selectedObject.GetComponent<Card>() : null;
+    public BaseTile SelectedTile => AuxileryLogic.IsIt<BaseTile>(_selectedObject) ? _selectedObject.GetComponent<BaseTile>() : null;
     protected override void Awake()
     {
         base.Awake();
@@ -21,9 +25,11 @@ public class Mouse : Singleton<Mouse>
 
     void Update()
     {
+        //Mouse RayCasts every frame.
         if (_mainCamera != null)
         {
-            HandleMouseEvent();
+            Mouse_RayCast();
+            //Rules toggle.
             if (Input.GetKeyDown(KeyCode.Tab))
             {
                 RulesToggle.Instance.ToggleRulesVisibility();
@@ -35,7 +41,8 @@ public class Mouse : Singleton<Mouse>
         }
     }
 
-    private void HandleMouseEvent()
+    //Casts a Ray. Depending on Game State will
+    private void Mouse_RayCast()
     {
         Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit))
@@ -59,12 +66,12 @@ public class Mouse : Singleton<Mouse>
                 case GameState.Global_States.HandCardSelected:
                     if ((1 << hitObject.layer) == _tileLayer)
                     {
-                        HandleBoardInteraction(hitObject);
+                        HandleBoardInteraction(hitObject.GetComponent<InteractiveObject>());
 
                         if (Input.GetMouseButtonDown(0) && OnMouseClick != null)
                         {
                             OnMouseClick.Invoke(hitObject);
-                            DeselectCard();
+                            Deselect__selectedObject();
                         }
                     }
                     break;
@@ -76,9 +83,9 @@ public class Mouse : Singleton<Mouse>
 
                         if (Input.GetMouseButtonDown(0) && OnMouseClick != null)
                         {
-                            Debug.Log($"{selectedCard.Name} is selected");
+                            Debug.Log($"{SelectedCard.Name} is selected");
                             OnMouseClick.Invoke(hitObject);
-                            DeselectCard();
+                            Deselect__selectedObject();
                             BoardVisualiser.Instance.ResetBoard();
                         }
                     }
@@ -90,56 +97,58 @@ public class Mouse : Singleton<Mouse>
             }
             if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Space))
             {
-                DeselectCard();
+                Deselect__selectedObject();
                 BoardVisualiser.Instance.ResetBoard();
             }
         }
     }
+
+    //Handles Mouse and Card interactions
     private void HandleCardInteraction(Card hitCard)
     {
+        //Null Check
         if (hitCard == null)
         {
             UnityEngine.Debug.LogError("No card component loaded on raycasted card");
             return;
         }
-
-        if (_previousObject != hitCard.gameObject && selectedCard != hitCard)
+        //Hover Card
+        if (_focusedObject != hitCard.gameObject && _selectedObject != hitCard)
         {
             ResetPreviousObject();
-            _previousObject = hitCard.gameObject;
+            _focusedObject = hitCard;
             hitCard.card3D.VisualizeHover();
         }
-
+        //Select Card
         if (Input.GetMouseButtonDown(0))
         {
-            if (selectedCard != null)
+            if (AuxileryLogic.IsIt<Card>(_selectedObject))
             {
                 ResetPreviousObject();
             }
-            selectedCard = hitCard;
+            _selectedObject = hitCard;
             hitCard.Selection(true);
         }
     }
-
-    private void HandleBoardInteraction(GameObject hitObject)
+    // Handles Mouse and Board interactions
+    private void HandleBoardInteraction(InteractiveObject hitObject)
     {
-        var basetile = hitObject.GetComponent<BaseTile>();
-        if (_previousObject != hitObject && basetile != null)
+        if (_focusedObject != hitObject && hitObject is BaseTile)
         {
             ResetPreviousObject();
-            _previousObject = hitObject;
-            basetile.tile3D.FillSelectableColor();
+            _focusedObject = hitObject;
+            _focusedObject.GetComponent<BaseTile>().tile3D.FillSelectableColor();
         }
     }
-
+    // resets the previously selected gameobject: Card or Tile. 
     private void ResetPreviousObject()
     {
-        if (_previousObject == null) return;
+        if (_focusedObject == null) return;
 
-        var card = _previousObject.GetComponent<Card>();
+        var card = _focusedObject.GetComponent<Card>();
         if (card != null)
         {
-            if (card == selectedCard)
+            if (card == _selectedObject)
             {
                 card.card3D.ScaleReset();//should keep border until out of the gamestate
             }
@@ -150,26 +159,21 @@ public class Mouse : Singleton<Mouse>
         }
         else
         {
-            var baseTile = _previousObject.GetComponent<BaseTile>();
+            var baseTile = _focusedObject.GetComponent<BaseTile>();
             if (baseTile != null)
             {
                 baseTile.tile3D.FillDefaultColor();
             }
         }
     }
-
-    private void DeselectCard()
+    //Deselects the selected card or tile
+    private void Deselect__selectedObject()
     {
-        if (selectedCard != null)
+        if (_selectedObject is Card)
         {
-            selectedCard.Selection(false);
-            selectedCard = null;
+            _selectedObject.GetComponent<Card>().Selection(false);
+            _selectedObject = null;
         }
     }
 
-    public Card SelectedCard
-    {
-        get => selectedCard;
-        set => selectedCard = value;
-    }
 }

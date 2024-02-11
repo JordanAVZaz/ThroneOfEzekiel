@@ -46,7 +46,9 @@
      <Compile Include="Assets\Scenes\Scripts\Mouse.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
      <Compile Include="Assets\Scenes\Scripts\Tile3D.cs" />
+     <Compile Include="Assets\Scenes\Scripts\InteractiveObject.cs" />
      <Compile Include="Assets\Scenes\Scripts\Ability.cs" />
+     <Compile Include="Assets\Scenes\Scripts\AuxileryLogic.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
      <Compile Include="Assets\Scenes\Scripts\Hand.cs" />

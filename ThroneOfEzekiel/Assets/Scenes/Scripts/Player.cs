@@ -22,7 +22,7 @@ public class Player
     public Player(GameState.Players _player, string link)
     {
         player = _player;
-        _deckMeta = new Deck(link);
+        _deckMeta = new Deck(link, this);
         deck = _deckMeta.deck;
 
         // Load the prefab
@@ -78,7 +78,6 @@ public class Player
             Draw();
         }
         hand.UpdateCardPlacement();
-
     }
 
 

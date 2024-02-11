@@ -56,11 +56,12 @@ public class Deck
     public string deckName;
     public List<CardEntry> cards = new List<CardEntry>();//stores card data
     public CardList deck = new CardList();
+    private Player _player;
 
     public Deck()
     { }
 
-    public Deck(string link)
+    public Deck(string link, Player player)
     {
         LoadDeck(link);
     }
@@ -96,6 +97,7 @@ public class Deck
             for (int i = 0; i < cardEntry.copies; i++)
             {
                 Card newCard = cardEntry.Create_UnitCard();
+                newCard.Owner = _player;
                 if (newCard != null)
                 {
                     deck.Add(newCard);

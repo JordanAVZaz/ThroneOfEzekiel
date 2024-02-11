@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using Color = UnityEngine.Color;
 
-public class BaseTile : MonoBehaviour, ISubscribeToMouseClicks
+public class BaseTile : InteractiveObject, ISubscribeToMouseClicks
 {
     //Which players summoning zone is it in.
     public int playerX_summoningZone;
